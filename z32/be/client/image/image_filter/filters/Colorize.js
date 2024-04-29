@@ -1,0 +1,1 @@
+"use strict";export default function Colorize(e,t){Assert.assert(t,"The colorize effect needs a color. Not found");let r=e.data;for(let e=0,o=r.length;e<o;e+=4)r[e]=r[e]+t.red,r[e+1]=r[e+1]+t.green,r[e+2]=r[e+3]+t.blue;return e};

@@ -1,0 +1,1 @@
+"use strict";export default function DottedRectangle(t){t.beginPath(),t.lineWidth=2,t.rect(0,0,t.canvas.width,t.canvas.height),t.fillStyle="black",t.strokeStyle="grey",t.lineWidth=1;for(var e=0;e<t.canvas.width;e+=t.canvas.width/20)for(var a=0;a<t.canvas.height;a+=t.canvas.height/20)t.rect(e,a,1,1);t.stroke()};

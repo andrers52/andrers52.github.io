@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog</title>
+
+    <meta name="description" content="André's main page">
+    <meta name="author" content="Making sense of technology: a personal journey.">
+
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../../css/boilerplate.css">
+    <link rel="stylesheet" href="../../../../css/main.css">
+
+</head>
+
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <a 
+    class="btn fixed-top-left"
+    href="../../../../index.html"
+    title="Back to main page"
+  >
+    <i class="fa fa-home fa-2x"></i>
+  </a>
+
+  <div class="five-percent-padding">
+    <article class="text-with-border">
+      <h2>
+        Introducing the probability switch!
+      </h2>
+      <p>I'm going to start this blog talking about a pattern that has appearing in my programming for some time now.</p>
+      <p>
+        The scenario is as follows. You have a function and want it to, probabilistically, behave differently, 
+        every time you call it. One example is a mutation function, in the domain of evolutionary programming, which is 
+        expected to perform a different action among a set of possibilities, as illustrated by the following code.
+      </p>
+
+      <pre>
+      function mutate(somethingToMutate) {
+        let option = Random.randomInt(4); // generate integer in the range [0,3]
+        if (option === 0) { // exchange something
+          exchangeSomething(somethingToMutate);
+        } else if (option === 1) { // add something
+          addSomething(somethingToMutate);
+        } else if (option === 2) { // remove something
+          removeSomething(somethingToMutate);
+        } else { // change something
+          changeSomething(somethingToMutate);
+        }
+      }
+      </pre>
+      <p>
+        In the code above, which could also be a switch statement, each option has a chance of 25%. The problem with the code above is
+        that it is not easy to see the programmer intention right away. Also, it lacks flexibility. For instance, if we
+        want to change the probabilities, we could increase the random range, but it would only increase the chance of
+        the last option. Altough it is possible to change the probabilities by accepting a range for each possibility it
+        is cumbersome, to say the least.
+      </p>
+      <p>
+        With that scenario in mind, this is my proposed pattern:
+      </p>
+      <pre>
+      function mutateCode(somethingToMutate) {
+        let selectedOption = 
+          LanguageConstruct.probabilitySwitch(
+            // exchange something
+            exchangeSomething(somethingToMutate),
+            0.25,
+            // add something
+            addSomething(somethingToMutate),
+            0.25,
+            // remove something
+            removeSomething(somethingToMutate),
+            0.25,
+            // change something
+            changeSomething(somethingToMutate),
+            0.25
+          );
+      }
+      </pre>
+      <p>
+        Much better huh? My thoughts exactly... :)
+      </p>
+      <p>
+        And the implementation, in case you're wondering, is:
+      </p>
+
+      <pre>
+      // call format: 
+      //    LanguageConstruct.probabilitySwitch(func1, prob1, func2, prob2,..., funcN, probN)
+      LanguageConstruct.probabilitySwitch = function(...functionsAndProbabilities) {
+        Assert.assertIsArray(functionsAndProbabilities);
+        Assert.assert(functionsAndProbabilities.length%2===0, 
+                      'Expecting an even number of parameters');
+        
+        let functions = [];
+        let probabilities = [];
+        for (var i=0;i<functionsAndProbabilities.length;i++)
+          (((i+2)%2===0)? functions : probabilities)
+          .push(functionsAndProbabilities[i]);
+        
+        functions.forEach(func => Assert.assertIsFunction(func, 
+                                  'Expected (func1, prob1, func2, prob2,..., funcN, probN)'));
+        probabilities.forEach(prob => Assert.assertIsNumber(prob, 
+                                  'Expected (func1, prob1, func2, prob2,..., funcN, probN)'));
+
+        let probabilitiesSum = probabilities.reduce((sum, value) => sum + value, 0);
+        Assert.assert(probabilitiesSum, 'Probability sum must be 1');
+
+        //each one select a number based on its probability and the
+        //one with the bigger number wins.
+        let generatedValues = probabilities.map(prob => Math.random() * prob);
+        let selectedIndex = generatedValues.indexOfGreaterValue();
+        functions[selectedIndex]();
+      };
+      </pre>
+
+      <p>
+        The last point is: wouldn't it be nice to have this cool feature interwoven in the language itself? 
+        Then you could use it like a first class language construct, like:
+      </p>
+      <pre>
+      function mutateCode(somethingToMutate) {
+        switchProbability(somethingToMutate) {
+            case 0.25:
+                // exchange something
+                exchangeSomething(somethingToMutate)
+                break;
+            case 0.25:
+                // add something
+                addSomething(somethingToMutate),
+                break;
+            case 0.25:
+                // remove something
+                removeSomething(somethingToMutate),
+                break;
+            case 0.25:
+                // change something
+                changeSomething(somethingToMutate),
+                break;
+        }
+      }
+      </pre>
+      <p>
+        Actually, this is possible by "transpiling" the code before execution, with a tool like
+        <a target="_blank" href="https://www.sweetjs.org/">Sweet.js</a>.
+      </p>
+      <p>
+        And...That's it for the first post! Did you like it? Leave your comments bellow... Oh no... I'm sorry, 
+        this blog doesn't have this functionality yet... Well, you can hit me at
+        <a target="_blank" href="https://twitter.com/andrers52">@andrers52</a> and tell me what you think 
+        in 140 characters or less! :).
+      </p>
+      <h3>Happy Coding!</h3>
+      <h3>André</h3>
+
+    </article>
+  </div>
+
+
+  <script src="../../../../js/main.js"></script>
+
+
+</body>
+
+</html>

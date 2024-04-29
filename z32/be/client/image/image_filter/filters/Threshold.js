@@ -1,0 +1,1 @@
+"use strict";export default function Threshold(t,e){let r=t.data;for(let t=0;t<r.length;t+=4){var l=.2126*r[t]+.7152*r[t+1]+.0722*r[t+2]>=e?255:0;r[t]=r[t+1]=r[t+2]=l}return t};

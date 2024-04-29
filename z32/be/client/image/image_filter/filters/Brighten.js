@@ -1,0 +1,1 @@
+"use strict";export default function Brighten(t,e){Assert.assert(e,"The Brighten effect needs a BrightenAdjustment property (0-255) argument. Not found");let r=t.data;for(let t=0;t<r.length;t+=4)r[t]+=e,r[t+1]+=e,r[t+2]+=e;return t};

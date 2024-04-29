@@ -1,0 +1,1 @@
+"use strict";export default function HasEnergy(e=100,t=100){let n=e;this.increaseEnergy=function(e){(n+=e)>t&&(n=t)},this.decreaseEnergy=function(e,t=!1){let r=n-e;return r<0?(t&&this.die(),!1):(n=r,!0)},this.getEnergy=function(){return n},Object.defineProperty(this,"energy",{get:function(){return n},enumerable:!0})};

@@ -1,0 +1,1 @@
+"use strict";export default function GrayScale(t){let e=t.data;for(let t=0,l=e.length;t<l;t+=4){let l=.3*e[t]+.59*e[t+1]+.11*e[t+2];e[t]=l,e[t+1]=l,e[t+2]=l}return t};

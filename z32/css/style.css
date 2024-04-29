@@ -1,0 +1,289 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Animated stars on background *** TODO: CHECK IF IT IS SLOWING THE GAME. IF SO, DISABLE AT GAME START *** */
+html, body {
+    overflow: hidden;    
+    color: white;
+    height: 100%;
+    
+    background-color: black;
+    /* Firefox */
+    /* background-image: -moz-radial-gradient(circle, #FFFFFF 2px, rgba(248, 255, 128, .5) 4px, transparent 40px), -moz-radial-gradient(circle, #FFFFFF 1px, rgba(255, 186, 170, .4) 3px, transparent 30px), -moz-radial-gradient(ellipse, rgba(255, 255, 255, .9) 1px, rgba(251, 255, 186, .3) 2px, transparent 40px); */
+    /* Webkit */
+    /* background-image: -webkit-gradient(radial, 50% 50%, 2, 50% 50%, 40, from(white), color-stop(0.1, rgba(248, 255, 128, .5)), to(transparent)), -webkit-gradient(radial, 50% 50%, 1, 50% 50%, 30, from(white), color-stop(0.1, rgba(255, 186, 170, .4)), to(transparent)), -webkit-gradient(radial, 50% 50%, 1, 50% 50%, 40, from(rgba(255, 255, 255, .9)), color-stop(0.05, rgba(251, 255, 186, .3)), to(transparent)); */
+    /*Background Attributes*/
+    background-size: 550px 550px, 350px 350px, 250px 270px, 220px 200px;
+    background-position: 0 0, 30px 60px, 130px 270px, 70px 150px;
+    /* Animation */
+    animation-name: movement;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+body {
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* INITIAL ANIMATION */
+@keyframes movement {
+    from {
+        background-position: 0 0, 30px 60px, 130px 270px, 70px 150px;
+    }
+    to {
+        background-position: -550px 0, -320px 60px, -120px 270px, -150px 150px;
+    }
+}
+
+@-moz-keyframes movement {
+    from {
+        background-position: 0 0, 30px 60px, 130px 270px, 70px 150px;
+    }
+    to {
+        background-position: -550px 0, -320px 60px, -120px 270px, -150px 150px;
+    }
+}
+
+@-webkit-keyframes movement {
+    from {
+        background-position: 0 0, 30px 60px, 130px 270px, 70px 150px;
+    }
+    to {
+        background-position: -550px 0, -320px 60px, -120px 270px, -150px 150px;
+    }
+}
+
+#gameCanvas {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+/* high scores */
+.topLeftCornerText{
+    position:fixed;
+    top:1px;
+    left:5px;
+    color: green;
+}
+
+/* version and build */
+.bottomRightCornerText{
+    position:fixed;
+    bottom:1px;
+    right:5px;
+    color: green;
+}
+
+/* initial form */
+
+.centeredForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.typedText {
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -80%);
+  transform: translate(-50%, -80%);
+}
+
+​ img.centered {
+    position: absolute;
+    max-width: 80%;
+    top: 10%;
+    left: 10%;
+}
+
+img.centered:empty {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (orientation: portrait) {
+    img.centered {
+        max-width: 90%;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    img.centered {
+        max-height: 90%;
+    }
+}
+
+
+/* Input effects */
+
+input[type=text],
+textarea {
+    color: #000000;
+    background-color: rgba(100,255,100,.7);
+    transition: all 0.30s ease-in-out;
+    outline: none;
+    padding: 3px 3px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid black;
+    box-shadow: rgba(0, 255, 0, 0.5) 0px 0px 24px;
+    border-radius: 29px;
+}
+
+button {
+    color: #000000;
+    background-color: rgba(100,255,100,.7);
+    box-shadow: 0 0 5px rgba(0, 255, 0, 1);
+    padding: 3px 3px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid black;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 24px;
+    border-radius: 29px;
+}
+
+.logo {
+    text-shadow: 2px 2px 8px rgb(36, 180, 79);
+    color: rgba(100,255,100,.5);
+    text-align: center;
+
+}
+.logo-z {
+    font-size: 96px;
+}
+.logo-32 {
+    font-size: 48px;
+}
+
+/* FONTS */
+
+
+
+
+/* REMOVED FONT-FACES TO SPEED UP LOADING OF Z32... 
+@font-face {
+font-family: 'GoodDog';
+src: url(../font/GoodDog/GoodDog.otf);
+}
+
+@font-face {
+font-family: 'Roboto';
+src: url(../font/roboto/Roboto.ttf);
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica-regular.eot'); // IE9 Compat Modes
+  src: url('/fonts/helvetica-regular.woff') format('woff'), // Pretty Modern Browsers
+       url('/fonts/helvetica-regular.ttf')  format('truetype'), // Safari, Android, iOS
+       url('/fonts/helvetica-regular.otf')  format('opentype');
+}
+*/
+
+
+/* FONTS */
+
+/* Jiro  https://tympanus.net/codrops/2015/01/08/inspiration-text-input-effects/ */
+/* .input--jiro {
+	margin-top: 2em;
+}
+
+.input__field--jiro {
+	padding: 0.85em 0.5em;
+	width: 100%;
+	background: transparent;
+	color: #DDE2E2;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+.input__label--jiro {
+	position: absolute;
+	left: 0;
+	padding: 0 0.85em;
+	width: 100%;
+	height: 100%;
+	text-align: left;
+	pointer-events: none;
+}
+
+.input__label-content--jiro {
+	-webkit-transition: -webkit-transform 0.3s 0.3s;
+	transition: transform 0.3s 0.3s;
+}
+
+.input__label--jiro::before,
+.input__label--jiro::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.input__label--jiro::before {
+	border-top: 2px solid #6a7989;
+	-webkit-transform: translate3d(0, 100%, 0) translate3d(0, -2px, 0);
+	transform: translate3d(0, 100%, 0) translate3d(0, -2px, 0);
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
+}
+
+.input__label--jiro::after {
+	z-index: -1;
+	background: #6a7989;
+	-webkit-transform: scale3d(1, 0, 1);
+	transform: scale3d(1, 0, 1);
+	-webkit-transform-origin: 50% 0%;
+	transform-origin: 50% 0%;
+}
+
+.input__field--jiro:focus,
+.input--filled .input__field--jiro {
+	opacity: 1;
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
+}
+
+.input__field--jiro:focus + .input__label--jiro .input__label-content--jiro,
+.input--filled .input__label-content--jiro {
+	-webkit-transform: translate3d(0, -80%, 0);
+	transform: translate3d(0, -80%, 0);
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.input__field--jiro:focus + .input__label--jiro::before,
+.input--filled .input__label--jiro::before {
+	-webkit-transition-delay: 0s;
+	transition-delay: 0s;
+}
+
+.input__field--jiro:focus + .input__label--jiro::before,
+.input--filled .input__label--jiro::before {
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.input__field--jiro:focus + .input__label--jiro::after,
+.input--filled .input__label--jiro::after {
+	-webkit-transform: scale3d(1, 1, 1);
+	transform: scale3d(1, 1, 1);
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+} */

@@ -1,0 +1,1 @@
+import ImageFilter from"../ImageFilter.js";export default function Sharpen(e){return ImageFilter.convolute(e,[0,-1,0,-1,5,-1,0,-1,0])};

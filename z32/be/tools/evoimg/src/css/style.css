@@ -1,0 +1,28 @@
+body {
+  background-color: black;
+  margin-top: 50px;
+  color: blue;
+}
+
+.center {
+  margin: 0 auto;
+  width: 200px;
+  background: black;
+  padding: 20px;
+  color: white;
+}
+
+img.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto 
+}
+
+div.centered {
+  display: block;
+  width: 400px;  
+  height: 400px;  
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 20px 20px 20px;
+};

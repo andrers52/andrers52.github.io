@@ -1,0 +1,12 @@
+add controls
+  multiple selection of shapes (squares, triangle,  circle, rectangle, elipse, line, point)
+  selector to allow/disallow rotation
+  multiple selection for effects
+  selector to allow/disallow fill
+  line width
+
+save codes
+opload image
+upload code
+
+create new effect on z32 to use the generated codes (plus mirrowing)

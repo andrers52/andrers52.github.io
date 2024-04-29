@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog</title>
+
+    <meta name="description" content="André's main page">
+    <meta name="author" content="Cheap web hosting for solopreneurs: alternatives review.">
+
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../../css/boilerplate.css">
+    <link rel="stylesheet" href="../../../../css/main.css">
+  </head>
+
+  <body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <a 
+      class="btn fixed-top-left"
+      href="../../../../index.html"
+      title="Back to main page"
+    >
+      <i class="fa fa-home fa-2x"></i>
+    </a>
+
+    <div class="five-percent-padding">
+      <article class="text-with-border">
+        <h2>
+            Cheap web hosting for solopreneurs.
+        </h2>
+        <p>
+          This post is about my experiences and opinions on current alternatives to web development.
+          
+          It may make some sense to you in case you have the following constraints:
+            - you have some application ideas you want to try out
+            - you have minimal resources to be expended in financially non-viable projects, like 
+              Minimal Viable Products (MVPs) or programming/scientific experiments you want to try out.
+
+          That means: you know about web programming, and you want to publish your 
+          own work for others to try and, perhaps, see some of these ideas become real products,
+          you are also doing it alone, with your own money, no enterprise infrastructure to back
+          you up (that is the 'solo' part in the title).
+
+          If you're on this boat, or are curious about it, keep on reading! :)
+
+          The constraints above apply to me. I'm willing to create software projects that are 
+          profitable on the web.
+          I had created already a multiplayer game, called Z32 which I developed
+          in the old way: had an idea and started implementing it myself without much 
+          interaction with other people. After about one year and a half I can say that it
+          wasn't a financially successful product (Not yet! :)). So I decided to invert the process,
+          implementing new ideas as Minimal Viable Products to test 
+          them as early as possible, constantly interacting with my audience 
+          during developent (I use Twitter. Please, follow me! :)), in order to receive valuable feedback
+          that would help me direct my efforts to create products that people really want.
+
+          For the game project, I used only JavaScript, both for client and server. I thought it would
+          make sense to use NodeJS for the server side, since I would be using JavaScript already in 
+          the browser I could reuse some parts of the code in the server.
+          That was not exactly true until recently, when browsers started accepting "import". Before 
+          that it was a bit complicated to reuse. But if you're willing to program in JavaScript it is 
+          self-evident that you're ready to stand a beating.
+
+          After developing the game, howhever, A had to deploy it. I could do it on Heroku, or Amazon, Google, Red Hat, Microsoft, etc.
+          All these companies have offering of Platform as a service (PaaS) wich, at first, looks great:
+          you do not need to care about infrastructure!!!! Let the experts do their job, for Christ sake! They even let you deploy your app for free!
+          What's not to like? Well, the problem is. They charge for used resources, like an electricity bill. And it is not cheap...
+          Resources to be charged are basically processing power and storage and, if you want to build some apps that are going to be used 
+          by a user comunity before you have a user base big enough to financially suport it, you will need to finance their use yourself.
+          That, for me, rules out the cloud alternative. Plus the fact that I want to own my software from top to bottom. But that is just me.** REPEAT THIS AS A QUOTE ***
+
+          With that in mind I decided to try a cloud provider, like Data Ocean, Vultr, among others, where you can deploy adf Linux virtual machine yourself and set it up from
+          scratch as you like it. I ended up chosing Vultr for the price and I have nothing to complain about them. 
+          
+          That was Ok for this one game project, were I was able to pick a $5/mo machine to start showing it while continuing development.
+
+          
+          -> Talk about using VULTR when it was just one project, and why, when I started to want to expand I had
+          to move to PHP for finantial reasons.
+
+          -> Talk about migrating to PHP hosting
+
+          *** CONTINUE ***
+
+          I had a couple of projects already and a social network 
+          In this post I'll narrate my experience in deciding wich hosting plan
+          to use.review web hosting alternatives to people who want 
+          to create a web presence and applications that will need a 
+          remote storage mediated by a REST API and also want to spend the 
+          least amont of money.
+        </p>
+
+        <p> 
+          This is a common scenario for people willing to create an on-line business, 
+          or a portfolio of applications.
+        </p>
+
+        <p>
+          In this case since there is no revenue yet, you'll want to minimize your
+          expenditure, on the other hand, there will not be, at least in the beginning, a lot
+          of traffic comming into your web application. The objective, by the way, is to
+          grow past this stage, when you'll need to look for other alternatives 
+          (this means you won!).
+        </p>
+
+        <p>
+          <h1>Frameworks.</h1>
+          To develop your applications you are going to need some supporting software.
+          As a minimum, you'd need a REST API, in which case you could develop all the
+          client interaction part in a Javascript Framework, like Angular, ou Vue.
+          It would be interesting to have, on the other hand, more support in the server.
+          One example of that is the support Ruby on Rails provides, for abstracting 
+          the database access, allowing using several alternatives, and the modification 
+          in the database structure (in RoR parlance "migrations"). The problem with that
+          is the fact that these frameworks 
+          <a
+            href="https://www.quora.com/Why-isnt-shared-hosting-suitable-for-Rails-hosting"
+            target="blank"
+          >
+            require a VPS hosting plan
+          </a>
+          , which is 
+          considerably costier.
+          Another possibility is Django, with it's free admin web interface with crud,
+          created for you just from the definition of your data model in the form of 
+          Python classes. Nonetheless, it's support seems also to be a bit
+          <a
+            href="https://www.a2hosting.com/kb/developer-corner/python/installing-and-configuring-django-on-linux-shared-hosting"
+            target="blank"
+          >
+            shaky
+          </a> for shared web hosting.
+          <blockquote>
+            Although we have tested and run this Django configuration on 
+            shared hosting accounts, it is not supported. You can use this
+            configuration as a starting point for your own Django projects, 
+            but A2 Hosting cannot help you troubleshoot or debug any custom
+            configurations.
+          </blockquote>
+        </p>
+
+        <p>
+          So, if you can settle for PHP and mySQL you can just select 
+          the provider by price.
+        </p>
+        
+        <h1> Moving to PHP land </h1>
+        <p>
+          Frameworks  
+            CodeIgniter
+            Laravel
+          Minimal API + Javascript APP
+          Pure PHP
+        </p>
+
+
+      </article>
+    </div>
+    <script src="../../../../js/main.js"></script>
+  </body>
+</html>

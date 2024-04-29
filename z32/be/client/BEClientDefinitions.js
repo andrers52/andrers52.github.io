@@ -1,0 +1,1 @@
+"use strict";let BEClientDefinitions={CANVAS_ID:"gameCanvas",LOADING_ANIMATION_ID:"loading_animation",LOADING_ANIMATION_CLASS_NAME:"centered",ANIMATION_INTERVAL:90,MOUSE_MOVE_PROPAGATION_LATENCY:700,MOUSE_DOWN_LATENCY:500};Object.freeze(BEClientDefinitions);export default BEClientDefinitions;

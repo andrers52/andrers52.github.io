@@ -1,0 +1,1 @@
+"use strict";import{vect}from"../../../../../common/geometry/Vector.js";export default function Triangle(e){let t=vect(0,0),i=vect(0,e.canvas.height),o=vect(e.canvas.width,e.canvas.height/2);e.beginPath(),e.moveTo(t.x,t.y),e.lineTo(i.x,i.y),e.lineTo(o.x,o.y),e.lineTo(t.x,t.y),e.lineWidth=2};

@@ -1,0 +1,1 @@
+"use strict";export default function Noise(t,e){e=e||55;let r=t.data;for(let t=0,a=r.length;t<a;t+=4){let a=(.5-Math.random())*e;r[t]+=a,r[t+1]+=a,r[t+2]+=a}return t};

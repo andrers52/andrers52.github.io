@@ -1,0 +1,194 @@
+body {
+  margin-top: 50px;
+}
+
+input:focus, textarea:focus, select:focus{
+  outline: none;
+}
+
+.main-container {
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.images-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.controls-container {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.image{
+  max-height:500px;
+  max-width:500px;
+  height:auto;
+  width:auto;
+}
+
+
+
+/* BUTTONS */
+a.button{
+	display:inline-block;
+	padding:0.7em 1.4em;
+	margin:0 0.3em 0.3em 0;
+	border-radius:0.15em;
+	box-sizing: border-box;
+	text-decoration:none;
+	font-family:'Roboto',sans-serif;
+	text-transform:uppercase;
+	font-weight:400;
+	color:#FFFFFF;
+	background-color:rgba(51, 103, 177, 0.78);;
+	box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+	text-align:center;
+	position:relative;
+}
+a.button:active{
+	top:0.1em;
+}
+@media all and (max-width:30em){
+	a.button{
+		display:block;
+		margin:0.4em auto;
+	}
+}
+
+/* RANGE TEXT */
+.rangeText {
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color: blue;
+}
+
+
+/* RANGE */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 5.05px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 22.9px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: rgba(57, 114, 197, 0.78);
+  border-radius: 12.8px;
+  border: 1.4px solid #000000;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #00001e;
+  height: 33px;
+  width: 12px;
+  border-radius: 9px;
+  background: #bfffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7.45px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: rgba(76, 128, 203, 0.78);
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 22.9px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: rgba(57, 114, 197, 0.78);
+  border-radius: 12.8px;
+  border: 1.4px solid #000000;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #00001e;
+  height: 33px;
+  width: 12px;
+  border-radius: 9px;
+  background: #bfffff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 22.9px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: rgba(51, 103, 177, 0.78);
+  border: 1.4px solid #000000;
+  border-radius: 25.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]::-ms-fill-upper {
+  background: rgba(57, 114, 197, 0.78);
+  border: 1.4px solid #000000;
+  border-radius: 25.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #00001e;
+  height: 33px;
+  width: 12px;
+  border-radius: 9px;
+  background: #bfffff;
+  cursor: pointer;
+  height: 22.9px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: rgba(57, 114, 197, 0.78);
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: rgba(76, 128, 203, 0.78);
+}
+
+
+/* FILE INPUT */
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  width: 130px;
+}
+.custom-file-input::before {
+  content: 'Select image';
+	display:inline-block;
+	padding:0.7em 1.4em;
+	margin:0 0.3em 0.3em 0;
+	border-radius:0.15em;
+	box-sizing: border-box;
+	text-decoration:none;
+	font-family:'Roboto',sans-serif;
+	text-transform:uppercase;
+	font-weight:400;
+	color:#FFFFFF;
+	background-color:rgba(51, 103, 177, 0.78);;
+	box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+	text-align:center;
+  position:relative;
+  user-select: none;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}

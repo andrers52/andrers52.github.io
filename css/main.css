@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css?family=Cormorant:700|Lato:900|Arvo|Kaushan+Script');
+
+
+body{
+  background: url("../img/background.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+img, blockquote {
+  border-radius: 15px;
+  box-shadow: 0 10px 6px -6px #777;
+}
+
+pre {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-left: 3px solid #f36d33;
+  color: #666;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em 1.5em;
+  display: block;
+  word-wrap: break-word;
+}
+
+
+/* *** IMAGE POSITIONING *** */
+
+.top-banner {
+  height: 90%;
+  width: 98%;
+  background-color: #7e3ade; /* #240090 #190061 #659DBD #2F2FA2 #7e3ade #3d4862 */
+  background-size: 100% 100%;
+  border-radius: 15px;
+  margin-top: 2%;
+}
+
+.fixed-top-left {
+  left: 10px;
+  top: 10px; 
+}
+
+.fixed-top-right {
+  right: 10px; 
+  top: 10px; 
+}
+
+.fixed-bottom-right  {
+  right: 10px;
+  bottom: 10px; 
+}
+
+.fixed-bottom-left  {
+  left: 10px;
+  bottom: 10px; 
+}
+
+.fixed-top-left, .fixed-top-right, .fixed-bottom-right, .fixed-bottom-left {
+  position: fixed; 
+  z-index: 1;
+}
+
+/* *** MAIN LAYOUT *** */
+.third-part-page {
+  height: 33vh;
+}
+
+.two-thirds-page {
+  height: 66vh;
+  resize: vertical;
+}
+
+.half-page {
+  height: 100vh;
+  resize: vertical;
+}
+  
+.center-elements-horizontal {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.center-elements-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@supports (-ms-ime-align:auto) { /* Edge only */
+  .center-elements-horizontal {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+/* *** BUTTONS *** */
+.btn:link, .btn:visited {
+  display: inline;
+  padding: 10px;
+  margin: 10px;
+  background-color: #7e3ade;
+  color: WhiteSmoke;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn:hover {
+ background-color: #321062;
+ color: white;
+}
+
+/* *** TEXT EFFECTS *** */
+.name {
+  font-size: 26vmin;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  color: whitesmoke;
+}
+
+.description {
+  font-size: 7vmin;
+  font-family: 'Arvo', serif;
+  text-align: center;
+  margin-top: 10%;
+  color: whitesmoke;
+}
+
+h2 {
+  font-size: 5vmin;
+  font-family: 'Lato', sans-serif;
+  color: whitesmoke;
+  text-align: center;
+}
+
+.icon-button-text {
+  font-size: 2vmin;
+  font-family: 'Lato', sans-serif;
+  color: whitesmoke;
+  text-align: center;
+}
+
+:focus {outline:none;}
+
+
+
+
+
+.text-with-border {
+  color: whitesmoke;
+  width: 98%;
+  height: 80%;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 15px;
+  border-color: cyan;
+  padding: 1%;
+  font-size: 4vmin;
+  font-family: 'Arvo', serif;
+}
+
+.five-percent-padding, .blog-text {
+  padding: 5%;
+}
+
+
+
+blockquote {
+  color: black;
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 5% 2%;
+  padding: 2%;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4vmin;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+
+/* **** SCROOL BAR *** */
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(255,0,0,0.8); 
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(255,0,0,0.4); 
+}
+
+/* *** LINKS *** */
+ /* unvisited link */
+ a:link {
+  color: Aqua ;
+}
+
+/* visited link */
+a:visited {
+  color: DeepSkyBlue ;
+}
+
+/* mouse over link */
+a:hover {
+  color: LightPink;
+}
+
+/* selected link */
+a:active {
+  color: #553D67;
+} 

@@ -1,0 +1,1 @@
+"use strict";import{vect}from"../../../../../common/geometry/Vector.js";export default function Square(t){let e=(t.canvas.width+t.canvas.height)/2,c=vect(0,0);t.beginPath(),t.rect(c.x+2,c.y+2,e-4,e-4),t.lineWidth=2};

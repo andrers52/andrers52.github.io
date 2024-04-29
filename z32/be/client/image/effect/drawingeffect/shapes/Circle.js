@@ -1,0 +1,1 @@
+"use strict";export default function Circle(t){let a=Math.min(t.canvas.width,t.canvas.height)/2-2;t.beginPath(),t.arc(t.canvas.width/2,t.canvas.height/2,a,0,2*Math.PI),t.closePath(),t.lineWidth=2};

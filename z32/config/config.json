@@ -1,0 +1,9 @@
+{
+  "buildType": "deploy",
+  "version": "1.3.7",
+  "playProceduralSoundInClient": false,
+  "userAlwaysAtCenterOfCamera": true,
+  "localApp": true,
+  "cameraFollowUser": true,
+  "worldToCameraSize": false
+}

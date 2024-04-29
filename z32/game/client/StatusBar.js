@@ -1,0 +1,1 @@
+import z32 from"./z32.js";var StatusBar={draw:function(t){let e=z32.getUserAgent();e&&(t.save(),t.fillStyle="white",t.textAlign="left",t.fillText(`score: ${e.userScore}`,15,t.canvas.height-2),t.stroke(),t.restore())}};export default StatusBar;

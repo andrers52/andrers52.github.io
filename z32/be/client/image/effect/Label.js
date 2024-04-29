@@ -1,0 +1,1 @@
+"use strict";export default function Label(t,e){let a=document.createElement("CANVAS");rect();a.width=t.canvas.width,a.height=t.canvas.height;a.getContext("2d")};

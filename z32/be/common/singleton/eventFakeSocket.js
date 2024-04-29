@@ -1,0 +1,1 @@
+function EventFakeSocket(){let e={};this.on=function(t,n){e[t]=n},this.emit=function(t,n){e[t](n)}}var eventFakeSocket=new EventFakeSocket;export default eventFakeSocket;

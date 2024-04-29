@@ -1,0 +1,8 @@
+- allow partners to create accounts and manage their queue
+  - signup (DONE)
+  - login (DONE)
+  - partner home (manage queue)  
+  - recover password
+- allow clients to browse/enter/leave partners' queues
+  - available queues
+  - partner queue (client view)

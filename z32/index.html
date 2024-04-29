@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-GameServer-capable" content="yes">
+    <meta name="mobile-web-GameServer-capable" content="yes">
+    <meta name="viewport" content="minimal-ui, width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <title> Z32 </title>
+    <meta name="description" content="The massive multiplayer, action-packed space shooter!">
+    <meta property="og:description" content="The massive multiplayer, action-packed space shooter!">
+    <meta name="keywords" content="Z32, asteroids, game, games, web game, html5, fun, flash, arcade, retro">
+    <meta name="author" content="André Rodrigues da Silva">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Z32" />
+    <meta property="og:url" content="http://z32.space/" />
+    <meta property="og:site_name" content="Z32" />
+    <meta property="og:image" content="http://z32.space/img/z32screenshot.jpg" />        
+    <link rel="image_src" href="http://z32.space/img/z32screenshot.jpg" />
+    <link rel="shortcut icon" href="./favicon.ico?v=2" type="image/x-icon" />
+    <link rel="icon" href="./favicon.ico?v=2" type="image/x-icon" />
+
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- SHOWS A LOADING MESSAGE. BEFORE START. THIS IS TO ALLOW FONTS TO LOAD...
+      <div id="loading" style="position:absolute; font-family:serif;">Loading...</div>
+      <script>
+        var element = document.getElementById("loading");
+        window.setTimeout(function() {
+            element.style.fontFamily = "GoodDog";
+        }, 0);
+      </script>
+    -->
+
+  </head>
+  <body oncontextmenu="return false">
+    <!-- <img id="screenshotImg" src="img/z32screenshot.jpg" alt="Z32 screeshot" style="display: none;"> -->
+
+    
+    <script src="./libs/typed.min.js"></script>
+
+    <div id="contentArea">
+        <!-- HTML CONTENT GOES HERE -->
+    </div>
+    <script type="module">
+      import BEServer from './be/server/singleton/BEServer.js'
+      import Z32Server from './game/server/Z32Server.js'
+      
+
+      // *** SERVER START ***
+      let config =
+      {
+        "buildType": "dev",
+        "version": "1.3.6",
+        "playProceduralSoundInClient": false,
+        "userAlwaysAtCenterOfCamera": true,
+        "localApp": true,
+        "cameraFollowUser": true,
+        "worldToCameraSize": false
+      }
+      BEServer.startApp('z32', new Z32Server(), config)
+
+
+      import BEClient from './be/client/singleton/BEClient.js';
+      import z32 from './game/client/z32.js';
+      window.onload = function() {
+        BEClient.start(z32);
+      };
+    </script>
+  </body>
+</html>

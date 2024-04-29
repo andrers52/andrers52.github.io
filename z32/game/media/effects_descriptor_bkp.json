@@ -1,0 +1,186 @@
+{ "images":
+  [{
+    "newImageName": "ship.jpg",
+    "size": {
+      "x": 100,
+      "y": 100
+    },
+    "opacity": 0.5,
+    "fillColor": "green",
+    "strokeColor": "black",
+    "effectsToApply": [{
+        "name": "Ship",
+        "parameters": {}
+      }
+    ]
+  },
+    {
+    "newImageName": "whiteParticle.jpg",
+    "size": {
+      "x": 30,
+      "y": 30
+    },
+    "effectsToApply": [{
+        "name": "RadialGradient",
+        "parameters": {
+          "startColor": "white",
+          "endColor": "black"
+        }
+    }]
+  },
+    {
+    "newImageName": "redParticle.jpg",
+    "size": {
+      "x": 30,
+      "y": 30
+    },
+    "effectsToApply": [{
+        "name": "RadialGradient",
+        "parameters": {
+          "startColor": "red",
+          "endColor": "black"
+        }
+    }]
+  },
+    {
+    "newImageName": "greenParticle.jpg",
+    "size": {
+      "x": 30,
+      "y": 30
+    },
+    "effectsToApply": [{
+        "name": "RadialGradient",
+        "parameters": {
+          "startColor": "green",
+          "endColor": "black"
+        }
+    }]
+  },
+    {
+    "newImageName": "blueParticle.jpg",
+    "size": {
+      "x": 30,
+      "y": 30
+    },
+    "effectsToApply": [{
+        "name": "RadialGradient",
+        "parameters": {
+          "startColor": "blue",
+          "endColor": "black"
+        }
+    }]
+  },
+  {
+    "newImageName": "triangle.jpg",
+    "size": {
+      "x": 100,
+      "y": 100
+    },
+    "opacity": 0.6,
+    "fillColor": "red",
+    "strokeColor": "yellow",
+    "effectsToApply": [{
+      "name": "Triangle",
+      "parameters": {}
+    }]
+  },
+  {
+    "newImageName": "star.jpg",
+    "size": {
+      "x": 100,
+      "y": 100
+    },
+    "fillColor": "grey",
+    "strokeColor": "grey",
+    "effectsToApply": [{
+      "name": "Star",
+      "parameters": {}
+    }]
+  },
+  {
+    "newImageName": "circle.jpg",
+    "size": {
+      "x": 100,
+      "y": 100
+    },
+    "fillColor": "grey",
+    "strokeColor": "grey",    
+    "effectsToApply": [{
+      "name": "Circle",
+      "parameters": {}
+    }]
+  },
+  {
+    "newImageName": "energy.jpg",
+    "size": {
+      "x": 100,
+      "y": 100
+    },
+    "effectsToApply": [{
+        "name": "RadialGradient",
+        "parameters": {
+          "startColor": "yellow",
+          "endColor": "grey"
+        }
+    }]
+  },
+  {
+    "newImageName": "background.jpg",
+    "size": {
+      "x": 1000,
+      "y": 1000
+    },
+    "fillColor": "grey",
+    "strokeColor": "white",
+    "effectsToApply": [{
+      "name": "DottedRectangle",
+      "parameters": {}
+    }]
+  },
+  {
+    "newImageName": "redParticle.jpg",
+    "size": {
+      "x": 100,
+      "y": 100
+    },
+    "effectsToApply": [
+      {
+        "name": "Star",
+        "parameters": {}
+      },
+      {
+        "name": "RadialGradient",
+        "parameters": {
+          "startColor": "white",
+          "endColor": "brown"
+        },
+        "combineOption": "soft-light"
+      }
+    ]
+  },
+  {
+    "newImageName": "rocket.jpg",
+    "size": {
+      "x": 100,
+      "y": 100
+    },
+    "opacity": 0.5,
+    "fillColor": "rgb(255,0,0)",
+    "strokeColor": "grey",    
+    "effectsToApply": [
+      {
+        "name": "Triangle",
+        "parameters": {}
+      },
+      {
+        "name": "RadialGradient",
+        "parameters": {
+          "startColor": "white",
+          "endColor": "black"
+        },
+        "combineOption": "luminosity"
+      }
+    ]
+  }  
+  ]
+}

@@ -1,0 +1,1 @@
+"use strict";export default function Invert(t){let e=t.data;for(let t=0,r=e.length;t<r;t+=4)e[t]=255-e[t],e[t+1]=255-e[t+1],e[t+2]=255-e[t+2];return t};
