@@ -1,0 +1,2 @@
+- move web presence dir here.
+- try to use my unstopable domain name as the url.
