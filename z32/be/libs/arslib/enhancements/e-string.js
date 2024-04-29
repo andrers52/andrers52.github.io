@@ -1,0 +1,1 @@
+"use strict";var EString={};EString.capitalize=(t=>this.charAt(0).toUpperCase()+t.slice(1)),EString.replaceAll=((t,r,e)=>t.split(r).join(e)),EString.createHash=(t=>{var r=0,e=t.length,i=0;if(e<=0)return"0";for(;i<e;)r=(r<<5)-r+t.charCodeAt(i++)|0;return r.toString()});export default EString;

@@ -1,2 +1,2 @@
-- move web presence dir here.
+- fix non-working projects
 - try to use my unstopable domain name as the url.

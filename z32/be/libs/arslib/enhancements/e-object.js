@@ -1,0 +1,1 @@
+"use strict";var EObject={isEmpty:t=>0===Object.keys(t).length&&t.constructor===Object,swapObjectKeysAndValues:t=>{var e={};for(var r in t)t.hasOwnProperty(r)&&(e[t[r]]=r);return e},extend:function(t,e){for(var r in e)try{e[r].constructor==Object?t[r]=EObject.extend(t[r],e[r]):t[r]=e[r]}catch(c){t[r]=e[r]}return t}};export default EObject;
