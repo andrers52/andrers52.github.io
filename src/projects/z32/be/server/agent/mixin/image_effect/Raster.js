@@ -1,0 +1,1 @@
+"use strict";import EFunction from"../../../../../libs/arslib/enhancements/e-function.js";import{createAgentWithRectangle}from"../../Agent.js";import Fade from"./Fade.js";export default function Raster(){this.move=EFunction.sequence(this.move,function(){let e=createAgentWithRectangle(this.imageName,this.rectangle.clone(),!1);Fade.call(e),e.startFading()},this)};
