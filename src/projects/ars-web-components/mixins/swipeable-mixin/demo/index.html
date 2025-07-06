@@ -577,17 +577,14 @@
       console.log('DOM loaded, initializing swipeable demo...');
 
       try {
-        // Attach swipe event listeners to static elements
-        let swipeCounts = { left: 0, right: 0, up: 0, down: 0 };
-
-        // Simple Test
-        const testSwipeable = document.getElementById('testSwipeable');
-        if (testSwipeable) {
-          document.addEventListener('swipe', (e) => {
-            debugLog('SWIPE EVENT HANDLER FIRED: ' + JSON.stringify(e.detail));
-            const direction = e.detail.direction;
-            const details = e.detail;
-            // Change background color based on direction
+        // Always attach the swipe event listener to document
+        document.addEventListener('swipe', (e) => {
+          debugLog('SWIPE EVENT HANDLER FIRED: ' + JSON.stringify(e.detail));
+          const direction = e.detail.direction;
+          const details = e.detail;
+          // Change background color based on direction for the simple test
+          const testSwipeable = document.getElementById('testSwipeable');
+          if (testSwipeable) {
             const colors = {
               left: 'blue',
               right: 'green',
@@ -601,8 +598,13 @@
               testSwipeable.style.transform = 'scale(1)';
             }, 1000);
             addToHistory(direction, details, 'test');
-          });
-        }
+          }
+        });
+        debugLog('Swipe event listener attached to document');
+
+        // Simple Test
+        const testSwipeable = document.getElementById('testSwipeable');
+        // (No longer needed to attach the listener here)
 
         // Main Swipe Demo
         const mainSwipeable = document.getElementById('mainSwipeable');
