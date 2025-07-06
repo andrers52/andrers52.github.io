@@ -87,7 +87,7 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     this._touchStartX = coords.x;
     this._touchStartY = coords.y;
     this._touchStartTime = Date.now();
-    console.log('******* Touch start:', this._touchStartX, this._touchStartY);
+    console.log('Touch start:', this._touchStartX, this._touchStartY);
   };
 
   _handleTouchMove = (event) => {
@@ -97,17 +97,17 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
 
   _handleTouchEnd = (event) => {
     event.preventDefault();
-    console.log('******* _handleTouchEnd');
+    console.log('_handleTouchEnd');
     const coords = this._getTouchCoordinates(event);
     this._touchEndX = coords.x;
     this._touchEndY = coords.y;
     const { deltaX, deltaY, distance } = this._calculateSwipeDistance();
     const time = this._calculateSwipeTime();
-    console.log('******* Touch start:', this._touchStartX, this._touchStartY);
-    console.log('******* Touch end:', this._touchEndX, this._touchEndY);
-    console.log('******* Delta X:', deltaX, 'Delta Y:', deltaY, 'Distance:', distance);
-    console.log('******* Time:', time, 'Min distance:', this._minSwipeDistance, 'Max time:', this._maxSwipeTime);
-    console.log('******* this._isValidSwipe(distance, time)', this._isValidSwipe(distance, time));
+    console.log('Touch start:', this._touchStartX, this._touchStartY);
+    console.log('Touch end:', this._touchEndX, this._touchEndY);
+    console.log('Delta X:', deltaX, 'Delta Y:', deltaY, 'Distance:', distance);
+    console.log('Time:', time, 'Min distance:', this._minSwipeDistance, 'Max time:', this._maxSwipeTime);
+    console.log('this._isValidSwipe(distance, time)', this._isValidSwipe(distance, time));
     if (this._isValidSwipe(distance, time)) {
       const direction = this._determineSwipeDirection(deltaX, deltaY);
       this.onSwipe(direction, { deltaX, deltaY, distance, time });
@@ -122,7 +122,7 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
   };
 
   _handleMouseEnd = (event) => {
-    console.log('******* _handleMouseEnd');
+    console.log('_handleMouseEnd');
     const coords = this._getTouchCoordinates(event);
     this._touchEndX = coords.x;
     this._touchEndY = coords.y;
