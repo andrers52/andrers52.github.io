@@ -40,9 +40,15 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
 
   _getTouchCoordinates(event) {
     if (event.touches && event.touches.length > 0) {
-      const touch = event.touches[0] || event.changedTouches[0];
+      // Touch start or move
+      const touch = event.touches[0];
+      return { x: touch.clientX, y: touch.clientY };
+    } else if (event.changedTouches && event.changedTouches.length > 0) {
+      // Touch end
+      const touch = event.changedTouches[0];
       return { x: touch.clientX, y: touch.clientY };
     } else {
+      // Mouse event fallback
       return { x: event.clientX, y: event.clientY };
     }
   }
@@ -81,6 +87,12 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     this._touchStartX = coords.x;
     this._touchStartY = coords.y;
     this._touchStartTime = Date.now();
+    console.log('******* Touch start:', this._touchStartX, this._touchStartY);
+  };
+
+  _handleTouchMove = (event) => {
+    event.preventDefault();
+    // Prevent scrolling during swipe
   };
 
   _handleTouchEnd = (event) => {
@@ -159,6 +171,7 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     }
     // Attach events to the host element for iOS compatibility
     this.addEventListener("touchstart", this._handleTouchStart, { passive: false });
+    this.addEventListener("touchmove", this._handleTouchMove, { passive: false });
     this.addEventListener("touchend", this._handleTouchEnd, { passive: false });
     this.addEventListener("mousedown", this._handleMouseStart);
     this.addEventListener("mouseup", this._handleMouseEnd);
@@ -168,6 +181,7 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
   disconnectedCallback() {
     if (super.disconnectedCallback) super.disconnectedCallback();
     this.removeEventListener("touchstart", this._handleTouchStart);
+    this.removeEventListener("touchmove", this._handleTouchMove);
     this.removeEventListener("touchend", this._handleTouchEnd);
     this.removeEventListener("mousedown", this._handleMouseStart);
     this.removeEventListener("mouseup", this._handleMouseEnd);
