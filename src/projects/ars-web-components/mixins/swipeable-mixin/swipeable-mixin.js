@@ -20,13 +20,15 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     this._touchStartTime = 0;
     this._minSwipeDistance = 30;
     this._maxSwipeTime = 800;
-    this._isTracking = false;
-    this._hasMoved = false;
 
-    // simple shadow that just renders children "as-is"
+    // Use a visible wrapper instead of display: contents
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
-      <style>:host{display:contents}</style><slot></slot>`;
+      <style>
+        :host { display: block; }
+        .swipe-wrapper { display: block; width: 100%; height: 100%; }
+      </style>
+      <div class="swipe-wrapper"><slot></slot></div>`;
   }
 
   // Private utility functions
@@ -42,10 +44,7 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
 
   _getTouchCoordinates(event) {
     if (event.touches && event.touches.length > 0) {
-      const touch = event.touches[0];
-      return { x: touch.clientX, y: touch.clientY };
-    } else if (event.changedTouches && event.changedTouches.length > 0) {
-      const touch = event.changedTouches[0];
+      const touch = event.touches[0] || event.changedTouches[0];
       return { x: touch.clientX, y: touch.clientY };
     } else {
       return { x: event.clientX, y: event.clientY };
@@ -81,58 +80,26 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
   }
 
   _handleTouchStart = (event) => {
+    event.preventDefault();
     const coords = this._getTouchCoordinates(event);
     this._touchStartX = coords.x;
     this._touchStartY = coords.y;
     this._touchStartTime = Date.now();
-    this._isTracking = true;
-    this._hasMoved = false;
-
-    console.log('Touch start:', coords.x, coords.y);
-  };
-
-  _handleTouchMove = (event) => {
-    if (!this._isTracking) return;
-
-    const coords = this._getTouchCoordinates(event);
-    const deltaX = coords.x - this._touchStartX;
-    const deltaY = coords.y - this._touchStartY;
-    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-    // Only prevent default if we've moved enough to consider it a potential swipe
-    if (distance > 10) {
-      this._hasMoved = true;
-      // Prevent scrolling only if we're tracking a significant movement
-      if (distance > this._minSwipeDistance / 2) {
-        event.preventDefault();
-      }
-    }
-
-    this._touchEndX = coords.x;
-    this._touchEndY = coords.y;
   };
 
   _handleTouchEnd = (event) => {
-    if (!this._isTracking) return;
-
+    event.preventDefault();
+    console.log('******* _handleTouchEnd');
     const coords = this._getTouchCoordinates(event);
     this._touchEndX = coords.x;
     this._touchEndY = coords.y;
-
     const { deltaX, deltaY, distance } = this._calculateSwipeDistance();
     const time = this._calculateSwipeTime();
-
-    console.log('Touch end:', coords.x, coords.y, 'Distance:', distance, 'Time:', time, 'Moved:', this._hasMoved);
-
-    // Only trigger swipe if we actually moved and it's a valid swipe
-    if (this._hasMoved && this._isValidSwipe(distance, time)) {
+    console.log('******* this._isValidSwipe(distance, time)', this._isValidSwipe(distance, time));
+    if (this._isValidSwipe(distance, time)) {
       const direction = this._determineSwipeDirection(deltaX, deltaY);
-      console.log('Valid swipe detected:', direction);
       this.onSwipe(direction, { deltaX, deltaY, distance, time });
     }
-
-    this._isTracking = false;
-    this._hasMoved = false;
   };
 
   _handleMouseStart = (event) => {
@@ -140,40 +107,19 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     this._touchStartX = coords.x;
     this._touchStartY = coords.y;
     this._touchStartTime = Date.now();
-    this._isTracking = true;
-    this._hasMoved = false;
   };
 
   _handleMouseEnd = (event) => {
-    if (!this._isTracking) return;
-
+    console.log('******* _handleMouseEnd');
     const coords = this._getTouchCoordinates(event);
     this._touchEndX = coords.x;
     this._touchEndY = coords.y;
     const { deltaX, deltaY, distance } = this._calculateSwipeDistance();
     const time = this._calculateSwipeTime();
-    if (this._hasMoved && this._isValidSwipe(distance, time)) {
+    if (this._isValidSwipe(distance, time)) {
       const direction = this._determineSwipeDirection(deltaX, deltaY);
       this.onSwipe(direction, { deltaX, deltaY, distance, time });
     }
-    this._isTracking = false;
-    this._hasMoved = false;
-  };
-
-  _handleMouseMove = (event) => {
-    if (!this._isTracking) return;
-
-    const coords = this._getTouchCoordinates(event);
-    const deltaX = coords.x - this._touchStartX;
-    const deltaY = coords.y - this._touchStartY;
-    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-    if (distance > 10) {
-      this._hasMoved = true;
-    }
-
-    this._touchEndX = coords.x;
-    this._touchEndY = coords.y;
   };
 
   // Public API
@@ -190,12 +136,14 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
   }
 
   onSwipe(direction, details) {
-    // Default implementation: dispatch a custom event
-    this.dispatchEvent(new CustomEvent("swipe", {
+    // Always dispatch from the host element, not from shadowRoot or a child
+    document.dispatchEvent(new CustomEvent("swipe", {
       detail: { direction, ...details },
       bubbles: true,
       composed: true,
     }));
+    // Optionally, also log for debugging
+    if (window.debugLog) window.debugLog('CustomEvent "swipe" dispatched from host');
   }
 
   connectedCallback() {
@@ -209,26 +157,27 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     if (this._validateTime(time)) {
       this._maxSwipeTime = parseInt(time);
     }
-    // Touch events for mobile
-    this.addEventListener("touchstart", this._handleTouchStart, { passive: true });
-    this.addEventListener("touchmove", this._handleTouchMove, { passive: false });
-    this.addEventListener("touchend", this._handleTouchEnd, { passive: true });
-    // Mouse events for desktop
-    this.addEventListener("mousedown", this._handleMouseStart);
-    this.addEventListener("mousemove", this._handleMouseMove);
-    this.addEventListener("mouseup", this._handleMouseEnd);
-    this.addEventListener("mouseleave", this._handleMouseEnd);
+    // Attach events to the wrapper for iOS compatibility
+    const wrapper = this.shadowRoot.querySelector('.swipe-wrapper');
+    if (wrapper) {
+      wrapper.addEventListener("touchstart", this._handleTouchStart, { passive: false });
+      wrapper.addEventListener("touchend", this._handleTouchEnd, { passive: false });
+      wrapper.addEventListener("mousedown", this._handleMouseStart);
+      wrapper.addEventListener("mouseup", this._handleMouseEnd);
+      wrapper.addEventListener("mouseleave", this._handleMouseEnd);
+    }
   }
 
   disconnectedCallback() {
     if (super.disconnectedCallback) super.disconnectedCallback();
-    this.removeEventListener("touchstart", this._handleTouchStart);
-    this.removeEventListener("touchmove", this._handleTouchMove);
-    this.removeEventListener("touchend", this._handleTouchEnd);
-    this.removeEventListener("mousedown", this._handleMouseStart);
-    this.removeEventListener("mousemove", this._handleMouseMove);
-    this.removeEventListener("mouseup", this._handleMouseEnd);
-    this.removeEventListener("mouseleave", this._handleMouseEnd);
+    const wrapper = this.shadowRoot.querySelector('.swipe-wrapper');
+    if (wrapper) {
+      wrapper.removeEventListener("touchstart", this._handleTouchStart);
+      wrapper.removeEventListener("touchend", this._handleTouchEnd);
+      wrapper.removeEventListener("mousedown", this._handleMouseStart);
+      wrapper.removeEventListener("mouseup", this._handleMouseEnd);
+      wrapper.removeEventListener("mouseleave", this._handleMouseEnd);
+    }
   }
 
   attributeChangedCallback(name, oldValue, newValue) {

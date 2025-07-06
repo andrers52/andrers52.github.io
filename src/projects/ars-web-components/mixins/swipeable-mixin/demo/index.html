@@ -6,6 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Swipeable Mixin - Demo</title>
 
+  <style>
+    #debug-log {
+      background: #222;
+      color: #b6ffb6;
+      font-family: monospace;
+      font-size: 13px;
+      padding: 6px 10px;
+      margin: 0 0 10px 0;
+      border-radius: 0 0 8px 8px;
+      max-height: 500px;
+      overflow-y: auto;
+      letter-spacing: 0.5px;
+      z-index: 1000;
+    }
+  </style>
+
+  <script>
+    function debugLog(msg) {
+      const logDiv = document.getElementById('debug-log');
+      if (logDiv) {
+        logDiv.textContent += (logDiv.textContent ? '\n' : '') + msg;
+        logDiv.scrollTop = logDiv.scrollHeight;
+      }
+    }
+    window.debugLog = debugLog;
+    // Monkey-patch console.log to also write to the visible log
+    (function() {
+      const origLog = console.log;
+      console.log = function(...args) {
+        origLog.apply(console, args);
+        if (window.debugLog) {
+          window.debugLog(args.map(String).join(' '));
+        }
+      };
+    })();
+    // Log page load
+    window.addEventListener('DOMContentLoaded', function() {
+      debugLog('=== [swipeable-mixin/demo/index.html] HTML loaded and script running ===');
+    });
+  </script>
+
   <!-- Common CSS -->
   <link rel="stylesheet" href="../../../css/base.css">
   <link rel="stylesheet" href="../../../css/components.css">
@@ -283,23 +324,14 @@
 </head>
 
 <body>
+  <div id="debug-log">[debug log]</div>
   <div class="container">
-    <div class="header">
-      <h1>📱 Swipeable Mixin</h1>
-      <p>Add Touch Swipe Gestures to Any Element</p>
-    </div>
+
 
     <div class="content">
       <a href="../../../" class="back-link">← Back to Demo Page</a>
 
-      <div class="info-box">
-        <h4>About Swipeable Mixin</h4>
-        <p>This mixin adds touch swipe gesture detection to any web component. It supports directional swipes (left,
-          right, up, down) with customizable sensitivity and timing. Perfect for mobile-friendly interfaces and
-          gesture-based interactions.</p>
-        <p><strong>💡 Tip:</strong> On desktop, you can use mouse drag gestures instead of touch swipes! The settings
-          are optimized for both mobile and desktop use.</p>
-      </div>
+
 
       <!-- Simple Test Element -->
       <div class="demo-section">
@@ -551,7 +583,8 @@
         // Simple Test
         const testSwipeable = document.getElementById('testSwipeable');
         if (testSwipeable) {
-          testSwipeable.addEventListener('swipe', (e) => {
+          document.addEventListener('swipe', (e) => {
+            debugLog('SWIPE EVENT HANDLER FIRED: ' + JSON.stringify(e.detail));
             const direction = e.detail.direction;
             const details = e.detail;
             // Change background color based on direction
