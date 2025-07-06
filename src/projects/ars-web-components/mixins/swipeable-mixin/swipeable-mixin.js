@@ -91,8 +91,10 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     this._touchEndY = coords.y;
     const { deltaX, deltaY, distance } = this._calculateSwipeDistance();
     const time = this._calculateSwipeTime();
-    console.log('******* Touch coordinates:', { start: { x: this._touchStartX, y: this._touchStartY }, end: { x: this._touchEndX, y: this._touchEndY } });
-    console.log('******* Swipe details:', { deltaX, deltaY, distance, time, minDistance: this._minSwipeDistance, maxTime: this._maxSwipeTime });
+    console.log('******* Touch start:', this._touchStartX, this._touchStartY);
+    console.log('******* Touch end:', this._touchEndX, this._touchEndY);
+    console.log('******* Delta X:', deltaX, 'Delta Y:', deltaY, 'Distance:', distance);
+    console.log('******* Time:', time, 'Min distance:', this._minSwipeDistance, 'Max time:', this._maxSwipeTime);
     console.log('******* this._isValidSwipe(distance, time)', this._isValidSwipe(distance, time));
     if (this._isValidSwipe(distance, time)) {
       const direction = this._determineSwipeDirection(deltaX, deltaY);
