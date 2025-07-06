@@ -149,7 +149,7 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
 
   onSwipe(direction, details) {
     // Always dispatch from the host element, not from shadowRoot or a child
-    document.dispatchEvent(new CustomEvent("swipe", {
+    this.dispatchEvent(new CustomEvent("swipe", {
       detail: { direction, ...details },
       bubbles: true,
       composed: true,

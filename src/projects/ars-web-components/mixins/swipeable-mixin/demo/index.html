@@ -42,9 +42,9 @@
       };
     })();
     // Log page load
-    // window.addEventListener('DOMContentLoaded', function() {
-    //   debugLog('=== [swipeable-mixin/demo/index.html] HTML loaded and script running ===');
-    // });
+    window.addEventListener('DOMContentLoaded', function() {
+      debugLog('=== [swipeable-mixin/demo/index.html] HTML loaded and script running ===');
+    });
   </script>
 
   <!-- Common CSS -->
@@ -505,75 +505,8 @@
       console.log('Mouse up detected on document at:', e.clientX, e.clientY);
     });
 
-    // Swipe counters
-    let swipeCounts = { left: 0, right: 0, up: 0, down: 0 };
-
-
-    // History management
-    function addToHistory(direction, details, elementId = 'main') {
-      const history = document.getElementById('swipeHistory');
-      if (!history) {
-        console.warn('History element not found');
-        return;
-      }
-
-      const entry = document.createElement('div');
-      entry.className = `history-entry ${direction}`;
-
-      const timestamp = new Date().toLocaleTimeString();
-      const distance = Math.round(details.distance);
-      const time = details.time;
-
-      entry.textContent = `[${timestamp}] ${elementId}: ${direction.toUpperCase()} (${distance}px, ${time}ms)`;
-
-      history.appendChild(entry);
-      history.scrollTop = history.scrollHeight;
-
-      // Keep only last 20 entries
-      while (history.children.length > 20) {
-        history.removeChild(history.firstChild);
-      }
-    }
-
-    // Global functions for demo controls
-    window.applySettings = function () {
-      console.log('Applying settings...');
-      const minDistance = parseInt(document.getElementById('minDistance').value);
-      const maxTime = parseInt(document.getElementById('maxTime').value);
-
-      const containers = document.querySelectorAll('swipeable-container, swipeable-card, simple-swipeable');
-      console.log('Found containers:', containers.length);
-      containers.forEach(container => {
-        container.setMinSwipeDistance(minDistance);
-        container.setMaxSwipeTime(maxTime);
-      });
-
-      addToHistory('settings', {
-        distance: minDistance,
-        time: maxTime
-      }, 'settings');
-    };
-
-    window.resetCounters = function () {
-      console.log('Resetting counters...');
-      swipeCounts = { left: 0, right: 0, up: 0, down: 0 };
-      const elements = ['leftCount', 'rightCount', 'upCount', 'downCount'];
-      elements.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) element.textContent = '0';
-      });
-    };
-
-    window.clearHistory = function () {
-      console.log('Clearing history...');
-      const history = document.getElementById('swipeHistory');
-      if (history) {
-        history.innerHTML = '<div class="history-entry">History cleared...</div>';
-      }
-    };
-
     // Initialize demo
-    window.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
       console.log('DOM loaded, initializing swipeable demo...');
 
       try {
@@ -583,7 +516,7 @@
         // Simple Test
         const testSwipeable = document.getElementById('testSwipeable');
         if (testSwipeable) {
-          document.addEventListener('swipe', (e) => {
+          testSwipeable.addEventListener('swipe', (e) => {
             debugLog('SWIPE EVENT HANDLER FIRED: ' + JSON.stringify(e.detail));
             const direction = e.detail.direction;
             const details = e.detail;
@@ -689,6 +622,75 @@
         console.error('Error initializing swipeable demo:', error);
       }
     });
+
+
+    // Swipe counters
+    let swipeCounts = { left: 0, right: 0, up: 0, down: 0 };
+
+
+    // History management
+    function addToHistory(direction, details, elementId = 'main') {
+      const history = document.getElementById('swipeHistory');
+      if (!history) {
+        console.warn('History element not found');
+        return;
+      }
+
+      const entry = document.createElement('div');
+      entry.className = `history-entry ${direction}`;
+
+      const timestamp = new Date().toLocaleTimeString();
+      const distance = Math.round(details.distance);
+      const time = details.time;
+
+      entry.textContent = `[${timestamp}] ${elementId}: ${direction.toUpperCase()} (${distance}px, ${time}ms)`;
+
+      history.appendChild(entry);
+      history.scrollTop = history.scrollHeight;
+
+      // Keep only last 20 entries
+      while (history.children.length > 20) {
+        history.removeChild(history.firstChild);
+      }
+    }
+
+    // Global functions for demo controls
+    window.applySettings = function () {
+      console.log('Applying settings...');
+      const minDistance = parseInt(document.getElementById('minDistance').value);
+      const maxTime = parseInt(document.getElementById('maxTime').value);
+
+      const containers = document.querySelectorAll('swipeable-container, swipeable-card, simple-swipeable');
+      console.log('Found containers:', containers.length);
+      containers.forEach(container => {
+        container.setMinSwipeDistance(minDistance);
+        container.setMaxSwipeTime(maxTime);
+      });
+
+      addToHistory('settings', {
+        distance: minDistance,
+        time: maxTime
+      }, 'settings');
+    };
+
+    window.resetCounters = function () {
+      console.log('Resetting counters...');
+      swipeCounts = { left: 0, right: 0, up: 0, down: 0 };
+      const elements = ['leftCount', 'rightCount', 'upCount', 'downCount'];
+      elements.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = '0';
+      });
+    };
+
+    window.clearHistory = function () {
+      console.log('Clearing history...');
+      const history = document.getElementById('swipeHistory');
+      if (history) {
+        history.innerHTML = '<div class="history-entry">History cleared...</div>';
+      }
+    };
+
   </script>
 </body>
 
