@@ -21,14 +21,10 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     this._minSwipeDistance = 30;
     this._maxSwipeTime = 800;
 
-    // Use a visible wrapper instead of display: contents
+    // simple shadow that just renders children "as-is"
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
-      <style>
-        :host { display: block; }
-        .swipe-wrapper { display: block; width: 100%; height: 100%; }
-      </style>
-      <div class="swipe-wrapper"><slot></slot></div>`;
+      <style>:host{display:contents}</style><slot></slot>`;
   }
 
   // Private utility functions
@@ -95,6 +91,8 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     this._touchEndY = coords.y;
     const { deltaX, deltaY, distance } = this._calculateSwipeDistance();
     const time = this._calculateSwipeTime();
+    console.log('******* Touch coordinates:', { start: { x: this._touchStartX, y: this._touchStartY }, end: { x: this._touchEndX, y: this._touchEndY } });
+    console.log('******* Swipe details:', { deltaX, deltaY, distance, time, minDistance: this._minSwipeDistance, maxTime: this._maxSwipeTime });
     console.log('******* this._isValidSwipe(distance, time)', this._isValidSwipe(distance, time));
     if (this._isValidSwipe(distance, time)) {
       const direction = this._determineSwipeDirection(deltaX, deltaY);
@@ -157,27 +155,21 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
     if (this._validateTime(time)) {
       this._maxSwipeTime = parseInt(time);
     }
-    // Attach events to the wrapper for iOS compatibility
-    const wrapper = this.shadowRoot.querySelector('.swipe-wrapper');
-    if (wrapper) {
-      wrapper.addEventListener("touchstart", this._handleTouchStart, { passive: false });
-      wrapper.addEventListener("touchend", this._handleTouchEnd, { passive: false });
-      wrapper.addEventListener("mousedown", this._handleMouseStart);
-      wrapper.addEventListener("mouseup", this._handleMouseEnd);
-      wrapper.addEventListener("mouseleave", this._handleMouseEnd);
-    }
+    // Attach events to the host element for iOS compatibility
+    this.addEventListener("touchstart", this._handleTouchStart, { passive: false });
+    this.addEventListener("touchend", this._handleTouchEnd, { passive: false });
+    this.addEventListener("mousedown", this._handleMouseStart);
+    this.addEventListener("mouseup", this._handleMouseEnd);
+    this.addEventListener("mouseleave", this._handleMouseEnd);
   }
 
   disconnectedCallback() {
     if (super.disconnectedCallback) super.disconnectedCallback();
-    const wrapper = this.shadowRoot.querySelector('.swipe-wrapper');
-    if (wrapper) {
-      wrapper.removeEventListener("touchstart", this._handleTouchStart);
-      wrapper.removeEventListener("touchend", this._handleTouchEnd);
-      wrapper.removeEventListener("mousedown", this._handleMouseStart);
-      wrapper.removeEventListener("mouseup", this._handleMouseEnd);
-      wrapper.removeEventListener("mouseleave", this._handleMouseEnd);
-    }
+    this.removeEventListener("touchstart", this._handleTouchStart);
+    this.removeEventListener("touchend", this._handleTouchEnd);
+    this.removeEventListener("mousedown", this._handleMouseStart);
+    this.removeEventListener("mouseup", this._handleMouseEnd);
+    this.removeEventListener("mouseleave", this._handleMouseEnd);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
