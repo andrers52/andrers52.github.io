@@ -506,7 +506,7 @@
     });
 
     // Initialize demo
-    document.addEventListener('DOMContentLoaded', function () {
+    window.onload = function () {
       console.log('DOM loaded, initializing swipeable demo...');
 
       try {
@@ -621,7 +621,7 @@
       } catch (error) {
         console.error('Error initializing swipeable demo:', error);
       }
-    });
+    };
 
 
     // Swipe counters
