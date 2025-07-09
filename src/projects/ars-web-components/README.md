@@ -17,6 +17,8 @@ Check out the [live demo](https://andrers52.github.io/src/projects/ars-web-compo
 - **📱 Touch Support**: Full mobile and desktop interaction support
 - **🧪 Functional Architecture**: Pure functions and functional programming principles for better testability
 - **🔒 Proper Encapsulation**: Private methods and static utilities for clean API design
+- **🤝 Mixin Coordination**: Smart pointer coordination system for multiple gesture mixins
+- **📜 Mobile Scroll Management**: Intelligent scroll prevention during gesture interactions
 
 ## Architecture
 
@@ -400,7 +402,41 @@ class SwipeableComponent extends SwipeableMixin(HTMLElement) {
 }
 ```
 
+**Features:**
+- Swipe detection with customizable distance and time thresholds
+- Direction detection (left, right, up, down)
+- Configurable via `min-swipe-distance` and `max-swipe-time` attributes
+- Works seamlessly with other mixins using PointerCoordinator
+- **Order-independent**: Can be nested in any order with other gesture mixins
+
 **Demo:** http://localhost:8080/mixins/swipeable-mixin/demo/
+
+### Draggable Mixin
+
+Adds drag gesture detection to components with customizable thresholds and real-time feedback.
+
+```javascript
+import { DraggableMixin } from "ars-web-components";
+
+class DraggableComponent extends DraggableMixin(HTMLElement) {
+  constructor() {
+    super();
+    this.addEventListener('dragstart', (e) => console.log('Drag started:', e.detail));
+    this.addEventListener('dragmove', (e) => console.log('Dragging:', e.detail));
+    this.addEventListener('dragend', (e) => console.log('Drag ended:', e.detail));
+  }
+}
+```
+
+**Features:**
+- Drag start, move, and end events with detailed coordinate data
+- Direction detection (left, right, up, down) with distance tracking
+- Configurable drag threshold via `drag-threshold` attribute
+- Real-time drag feedback with `dragmove` events
+- Works seamlessly with other mixins using PointerCoordinator
+- **Order-independent**: Can be nested in any order with other gesture mixins
+
+**Demo:** http://localhost:8080/mixins/draggable-mixin/demo/
 
 ### Roll Mixin
 
@@ -419,6 +455,67 @@ class RollableComponent extends RollMixin(HTMLElement) {
 ```
 
 **Demo:** http://localhost:8080/mixins/roll-mixin/demo/
+
+## Mixin Coordination
+
+ARS Web Components includes a sophisticated coordination system that allows multiple gesture mixins to work together seamlessly on the same element.
+
+### PointerCoordinator
+
+The `PointerCoordinator` manages pointer captures and event redispatching to prevent conflicts between multiple mixins:
+
+```javascript
+import { PointerCoordinator } from "ars-web-components";
+
+// Check if scrolling is currently prevented
+if (PointerCoordinator.isScrollPrevented()) {
+  console.log('Scroll prevention is active');
+}
+
+// Check if an element has captured a specific pointer
+if (PointerCoordinator.hasPointerCapture(element, pointerId)) {
+  console.log('Element has captured this pointer');
+}
+
+// Get debug information
+const debugInfo = PointerCoordinator.getDebugInfo();
+console.log('Active captures:', debugInfo.totalCaptures);
+```
+
+**Features:**
+- Prevents conflicts when multiple mixins try to capture the same pointer
+- Smart scroll prevention that only activates during active gestures
+- Event redispatching system to prevent infinite loops
+- Early gesture detection for responsive touch interactions
+- Debug tools and status monitoring for development
+- **Order-independent coordination**: Works regardless of mixin nesting order
+
+### Using Multiple Mixins Together
+
+You can combine multiple gesture mixins on the same element in any order:
+
+```html
+<!-- DraggableMixin as parent, SwipeableMixin as child -->
+<draggable-mixin drag-threshold="10">
+  <swipeable-mixin min-swipe-distance="30" max-swipe-time="800">
+    <div>Drag for movement, swipe for quick actions</div>
+  </swipeable-mixin>
+</draggable-mixin>
+
+<!-- SwipeableMixin as parent, DraggableMixin as child -->
+<swipeable-mixin min-swipe-distance="30" max-swipe-time="800">
+  <draggable-mixin drag-threshold="10">
+    <div>Swipe for quick actions, drag for movement</div>
+  </draggable-mixin>
+</swipeable-mixin>
+```
+
+In both examples:
+- Dragging will trigger drag events
+- Quick swipes will trigger swipe events
+- Both mixins coordinate through PointerCoordinator
+- Scroll prevention only activates when gestures are detected
+- **Order-independent**: Works regardless of which mixin is parent/child
 
 ## Show If Property True Mixin
 
