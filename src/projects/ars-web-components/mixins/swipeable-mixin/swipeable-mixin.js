@@ -1,5 +1,6 @@
 import WebComponentBase from '../../components/web-component-base/web-component-base.js';
 import { MixinBase } from '../common/mixin-base.js';
+import { PointerCoordinator } from '../common/pointer-coordinator.js';
 
 // SwipeableMixin - declarative web component for swipe gesture detection
 // Usage:
@@ -207,23 +208,33 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
   }
 
   _handlePointerDown = (event) => {
+    // Skip if this is a redispatched event
+    if (PointerCoordinator.isRedispatchedEvent(event)) {
+      return;
+    }
+    
     console.log('[swipeable-mixin] _handlePointerDown called', {
       pointerId: event.pointerId,
       pointerDown: this._pointerDown,
       event
     });
+    
     if (this._pointerDown) return; // Only track one pointer
+    
+    // Try to capture the pointer
+    if (!PointerCoordinator.capturePointer(this, event.pointerId)) {
+      console.log('[swipeable-mixin] Failed to capture pointer, will listen for redispatched events');
+      return; // Another mixin captured it, we'll listen for redispatched events
+    }
+    
     this._pointerDown = true;
     this._pointerId = event.pointerId;
-    try {
-      this.setPointerCapture(this._pointerId);
-      console.log('[swipeable-mixin] setPointerCapture called', this._pointerId);
-    } catch (err) {
-      console.warn('[swipeable-mixin] setPointerCapture failed', err);
-    }
     this._touchStartX = event.clientX;
     this._touchStartY = event.clientY;
     this._touchStartTime = Date.now();
+    
+    // Redispatch the event so other mixins can receive it
+    PointerCoordinator.redispatchPointerEvent(this, event);
     
     // Debug: Log bounding rect and start coordinates
     const rect = this.getBoundingClientRect();
@@ -232,19 +243,33 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
   };
 
   _handlePointerMove = (event) => {
+    // Skip if this is a redispatched event
+    if (PointerCoordinator.isRedispatchedEvent(event)) {
+      return;
+    }
+    
     console.log('[swipeable-mixin] _handlePointerMove called', {
       pointerId: event.pointerId,
       trackingPointerId: this._pointerId,
       pointerDown: this._pointerDown,
       event
     });
+    
     if (!this._pointerDown || event.pointerId !== this._pointerId) return;
     console.log('[swipeable-mixin] pointermove', event.type, event.pointerId, event.clientX, event.clientY);
+    
+    // Redispatch the event so other mixins can receive it
+    PointerCoordinator.redispatchPointerEvent(this, event);
     
     // Calculate current drag distance and direction
     const deltaX = event.clientX - this._touchStartX;
     const deltaY = event.clientY - this._touchStartY;
     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    
+    // Only prevent scrolling if we're actually processing a gesture
+    if (PointerCoordinator.shouldProcessGesture(deltaX, deltaY, this._minSwipeDistance / 2)) {
+      event.preventDefault();
+    }
     
     // Emit drag event for real-time feedback
     this.dispatchEvent(new CustomEvent("drag", {
@@ -262,21 +287,27 @@ class SwipeableMixin extends MixinBase(WebComponentBase) {
   };
 
   _handlePointerUp = (event) => {
+    // Skip if this is a redispatched event
+    if (PointerCoordinator.isRedispatchedEvent(event)) {
+      return;
+    }
+    
     console.log('[swipeable-mixin] _handlePointerUp called', {
       pointerId: event.pointerId,
       trackingPointerId: this._pointerId,
       pointerDown: this._pointerDown,
       event
     });
+    
     if (!this._pointerDown || event.pointerId !== this._pointerId) return;
     console.log('[swipeable-mixin] pointerup', event.type, event.pointerId, event.clientX, event.clientY);
+    
+    // Redispatch the event so other mixins can receive it
+    PointerCoordinator.redispatchPointerEvent(this, event);
+    
     this._pointerDown = false;
-    try {
-      this.releasePointerCapture(this._pointerId);
-      console.log('[swipeable-mixin] releasePointerCapture called', this._pointerId);
-    } catch (err) {
-      console.warn('[swipeable-mixin] releasePointerCapture failed', err);
-    }
+    PointerCoordinator.releasePointer(this, this._pointerId);
+    
     this._touchEndX = event.clientX;
     this._touchEndY = event.clientY;
     const deltaX = this._touchEndX - this._touchStartX;
