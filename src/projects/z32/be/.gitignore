@@ -1,9 +1,0 @@
-
-*.log
-*.log
-*.json
-node_modules/
-
-dist/
-media/
-target/

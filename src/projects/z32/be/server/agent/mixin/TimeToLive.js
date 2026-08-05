@@ -1,1 +1,0 @@
-"use strict";export default function TimeToLive(e){setTimeout(()=>{this.isAlive&&this.die()},e||5e3)};

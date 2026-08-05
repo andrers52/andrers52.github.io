@@ -1,103 +1,149 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Andre</title>
-
-    <meta name="description" content="André's main page">
-    <meta name="author" content="André's home page">
-
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="apple-touch-icon" href="icon.png">
-    <!-- Place favicon.ico in the root directory -->
-
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/boilerplate.css">
-    <link rel="stylesheet" href="css/main.css">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silver Studios — a software factory that runs itself</title>
+<meta name="description" content="Silver Studios builds software the way a dark factory builds goods: automated, vertically integrated, continuously evolving. Open-source foundations, working products.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%230c2e2a'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23e6b84c' stroke-width='6'/></svg>">
+<link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <!--[if lte IE 9]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->
 
-    <div class="fixed-top-right center-elements-horizontal">
-        <a href="https://www.linkedin.com/in/andr%C3%A9-silva-6786799/" target="_blank">
-            <img src="./img/linkedin.png" alt="André on LinkedIn!" height="42" width="42"
-                title="Let's connect on LinkedIn!" style="padding-right: 5px;">
-        </a>
-        <a href="https://github.com/andrers52" target="_blank">
-            <img src="./img/github.png" alt="André on GitHub!" height="42" width="42" title="Check out my code!">
-        </a>
+<header class="hero" id="top">
+  <div class="hero-media">
+    <img class="kb kb-hero" src="assets/hero.jpg" alt="" aria-hidden="true" fetchpriority="high">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-shade"></div>
+  </div>
+  <nav class="nav">
+    <span class="nav-mark">◍ Silver Studios</span>
+    <div class="nav-links">
+      <a href="#vision">Vision</a>
+      <a href="#open-source">Open Source</a>
+      <a href="#products">Products</a>
     </div>
+  </nav>
+  <div class="hero-content reveal">
+    <h1 class="wordmark">Silver Studios</h1>
+    <p class="tagline">A software factory that runs itself.</p>
+    <p class="subline">Automated construction. Vertical integration. Continuous evolution —
+      technology that is benign, empowering, and built to care.</p>
+    <a class="cta" href="#vision">See how it works</a>
+  </div>
+</header>
 
-    <div class="third-part-page center-elements-horizontal center-elements-vertical">
-        <div class="top-banner center-elements-vertical">
-            <div class="name">ANDRE</div>
-        </div>
-    </div>
+<main>
 
-    <div class="container third-part-page" style="display: flex; align-items: center;justify-content: center;">
-        <div>
-            <div class="description"> Software Developer </div>
-        </div>
-    </div>
+<section class="section" id="vision">
+  <h2 class="section-title reveal">The Software Dark Factory</h2>
+  <p class="section-intro reveal">
+    A dark factory is a plant so automated it runs with the lights off. We are building the
+    same thing for software: humans write and approve specifications, autonomous agents build,
+    test, and adapt the code. This site is that vision in progress — a direction, demonstrated
+    by working artifacts.
+  </p>
+  <div class="pillars">
+    <article class="pillar reveal">
+      <div class="pillar-media">
+        <img class="kb kb-automation" src="assets/automation.jpg" loading="lazy"
+             alt="Gardener robots harvesting glowing fruit in a sunlit vertical greenhouse">
+      </div>
+      <h3>Automation</h3>
+      <p>Spec in, software out. Build, test, and retry loops run autonomously — people define
+        <em>what</em>, the factory decides <em>how</em>. Humans approve specifications and
+        validate behavior, not lines of code.</p>
+    </article>
+    <article class="pillar reveal">
+      <div class="pillar-media">
+        <img class="kb kb-integration" src="assets/integration.jpg" loading="lazy"
+             alt="Cutaway of a vertical tower factory, raw materials at the base rising to finished products at the top">
+      </div>
+      <h3>Vertical Integration</h3>
+      <p>We own the whole stack — from the utility toolbelt and UI components to the engine
+        and the deployed product. Every project strengthens the next; reusable logic always
+        flows upstream into the shared foundation.</p>
+    </article>
+    <article class="pillar reveal">
+      <div class="pillar-media">
+        <img class="kb kb-evolution" src="assets/evolution.jpg" loading="lazy"
+             alt="Living architecture growing crystalline filaments that mend its own structure">
+      </div>
+      <h3>Continuous Evolution</h3>
+      <p>Software that keeps improving after it ships. An embedded evolutionary runtime
+        mutates and selects behavioral rules against real feedback — adaptation as a
+        property of the system, not a maintenance task.</p>
+    </article>
+  </div>
+</section>
 
-    <div class="third-part-page center-elements-horizontal">
-        <div class="center-elements-vertical">
-            <h2> Projects </h2>
-            <div class="center-elements-horizontal">
-                <a class="btn" href="./src/projects/z32" target="_blank" title="Web browser game!">
-                    <span class="icon-button-text">Z32</span> <i class="fas fa-rocket fa-2x"
-                        style=" vertical-align: middle;"></i>
-                </a>
-                <a class="btn" href="./src/projects/ars-web-components" target="_blank"
-                    title="Web components library">
-                    <span class="icon-button-text">ARS Web Components</span>
-                    <i class="fas fa-code fa-2x" style="vertical-align: middle;"></i>
-                </a>
-                <a class="btn" href="https://play.google.com/store/apps/details?id=com.arstech.agendaControle&hl=en"
-                    target="_blank" title="Simple calendar to help remember daily events">
-                    <span class="icon-button-text">Control Calendar</span>
-                    <i class="far fa-calendar-alt fa-2x" style=" vertical-align: middle;"></i>
-                </a>
-                <a class="btn" href="https://github.com/andrers52/solvernet" target="_blank" title="Solvernet">
-                    <span class="icon-button-text">Solvernet</span>
-                    <i class="fas fa-cogs fa-2x" style="vertical-align: middle;"></i>
-                </a>
-                <a class="btn" href="./src/projects/evo-img/" target="_blank"
-                    title="Try to reproduce image with HTML5 canvas primitives">
-                    <span class="icon-button-text">EvoImg</span>
-                    <i class="fas fa-images fa-2x" style="vertical-align: middle;"></i>
-                </a>
-            </div>
-        </div>
-        <div class="center-elements-vertical">
-            <h2> About me </h2>
-            <div class="center-elements-vertical">
-                <a class="btn" href="./src/about/about.html">
-                    <i class="fab fa-grav fa-2x"></i>
-                </a>
-            </div>
-        </div>
-        <div class="center-elements-vertical">
-            <h2> Blog </h2>
-            <div class="center-elements-vertical">
-                <a class="btn" href="./src/blog/blog.html">
-                    <i class="fab fa-blogger fa-2x"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+<section class="section section-alt" id="open-source">
+  <h2 class="section-title reveal">Open Source Foundations</h2>
+  <p class="section-intro reveal">
+    The factory's public building blocks — free to use, inspect, and extend.
+  </p>
+  <div class="cards">
+    <a class="card reveal" href="https://github.com/andrers52/arslib" target="_blank" rel="noopener">
+      <img src="assets/still_garden_hands.jpg" alt="Robotic hands offering glowing seeds of light above a garden" loading="lazy">
+      <div class="card-body">
+        <h3>arslib</h3>
+        <p>The core TypeScript utility toolbelt. Zero-dependency, generic, comprehensive —
+          math, data structures, testing, and unified persistent storage for browser and Node.</p>
+        <span class="card-link">github.com/andrers52/arslib →</span>
+      </div>
+    </a>
+    <a class="card reveal" href="https://github.com/andrers52/ars-web-components" target="_blank" rel="noopener">
+      <img src="assets/still_components.jpg" alt="Luminous modular components assembling into a structure" loading="lazy">
+      <div class="card-body">
+        <h3>ars-web-components</h3>
+        <p>Browser-native UI components, TypeScript-first. Shadow-DOM encapsulation and a
+          mixin coordination system for gestures, pointers, and inter-component calls.</p>
+        <span class="card-link">github.com/andrers52/ars-web-components →</span>
+      </div>
+    </a>
+  </div>
+</section>
 
-    <script src="js/main.js"></script>
+<section class="section" id="products">
+  <h2 class="section-title reveal">Products</h2>
+  <p class="section-intro reveal">
+    Built with the factory's own blocks. Try them right here — no installs, no accounts.
+  </p>
+  <div class="cards">
+    <article class="card reveal">
+      <img src="assets/product_z32.jpg" alt="Z32 gameplay" loading="lazy">
+      <div class="card-body">
+        <h3>Z32</h3>
+        <p>A high-performance game running on our Rust-native engine, compiled to WebAssembly
+          and rendered in your browser. The first real-world validation of the factory's
+          interactive stack.</p>
+        <a class="btn" href="z32/" target="_blank" rel="noopener">▶ Play Z32</a>
+      </div>
+    </article>
+    <article class="card reveal">
+      <img src="assets/product_corrida_leve.jpg" alt="Corrida Leve app" loading="lazy">
+      <div class="card-body">
+        <h3>Corrida Leve</h3>
+        <p>A gentle running companion (em português) that takes anyone from the couch to
+          their first light runs — adaptive plans, no pressure, no ads. Installable as a PWA.</p>
+        <a class="btn" href="corrida-leve/" target="_blank" rel="noopener">Open Corrida Leve</a>
+      </div>
+    </article>
+  </div>
+</section>
 
+</main>
+
+<footer class="footer">
+  <p class="footer-mark">◍ Silver Studios</p>
+  <p>Software grown, not assembled.</p>
+  <p class="footer-links">
+    <a href="https://github.com/andrers52" target="_blank" rel="noopener">GitHub</a>
+    · <a href="#top">Back to top</a>
+  </p>
+  <p class="footer-fine">All imagery on this page was generated locally — no stock photos, no tracking.</p>
+</footer>
+
+<script type="module" src="main.js"></script>
 </body>
-
 </html>

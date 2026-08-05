@@ -1,1 +1,0 @@
-"use strict";import Assert from"../../../../../libs/arslib/util/assert.js";export default function Action(t,i){Assert.assertIsFunction(t,"Action expecting a function to execute"),Assert.assertIsFunction(i,"Action expecting a test function"),this.execute=function(){return t(),this},this.isConditionMet=i};Action.neverSatisfiedCondition=function(){return!1};

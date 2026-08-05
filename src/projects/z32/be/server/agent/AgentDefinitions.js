@@ -1,1 +1,0 @@
-"use strict";var AgentDefinitions={AGENTS_EXECUTION_INTERVAL:80,AGENTS_CLIENT_REFRESH_INTERVAL:80};Object.freeze(AgentDefinitions);export default AgentDefinitions;

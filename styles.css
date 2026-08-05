@@ -1,0 +1,395 @@
+/* Silver Studios — solarpunk palette: deep green/teal, sunlight gold, silver accents */
+
+:root {
+  --bg: #0a1f1c;
+  --bg-alt: #0e2a25;
+  --surface: #12332d;
+  --text: #e8f0ea;
+  --text-dim: #a8bfb4;
+  --gold: #e6b84c;
+  --gold-soft: #f2d18a;
+  --silver: #c3ced1;
+  --teal-line: #1e4a41;
+  --maxw: 1080px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .nav-mark, .footer-mark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold-soft); }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-media { position: absolute; inset: 0; overflow: hidden; }
+
+/* Warm sun bloom over the hero's light source — a slow breathe of light,
+   the only thing on the page that changes brightness. */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(38rem 34rem at 24% 24%,
+    rgba(255, 216, 150, 0.30), rgba(255, 216, 150, 0) 68%);
+  animation: sun-breathe 13s ease-in-out infinite alternate;
+}
+
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 31, 28, 0.55) 0%,
+    rgba(10, 31, 28, 0.35) 45%,
+    rgba(10, 31, 28, 0.92) 100%
+  );
+}
+
+.nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem clamp(1.2rem, 5vw, 4rem);
+}
+
+.nav-mark { font-size: 1.15rem; color: var(--silver); white-space: nowrap; }
+
+.nav-links { display: flex; gap: 1.8rem; }
+.nav-links a { white-space: nowrap; }
+
+/* Below this the mark and the links can't share a row without wrapping into
+   each other — stack them instead. */
+@media (max-width: 560px) {
+  .nav { flex-direction: column; gap: 0.7rem; padding-top: 1.1rem; }
+  .nav-links { gap: 1.4rem; }
+}
+.nav-links a {
+  color: var(--text);
+  font-size: 0.95rem;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover { opacity: 1; color: var(--gold-soft); }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem clamp(1.2rem, 5vw, 4rem) 6rem;
+}
+
+.wordmark {
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  color: var(--silver);
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+}
+
+.tagline {
+  margin-top: 0.8rem;
+  font-size: clamp(1.15rem, 3vw, 1.6rem);
+  color: var(--gold);
+  font-style: italic;
+  font-family: Georgia, serif;
+}
+
+.subline {
+  margin-top: 1.2rem;
+  max-width: 34rem;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.cta {
+  margin-top: 2.2rem;
+  padding: 0.75rem 1.8rem;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--gold);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  transition: background 0.25s, color 0.25s;
+}
+.cta:hover { background: var(--gold); color: var(--bg); }
+
+/* ---------- Sections ---------- */
+
+.section {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.2rem, 5vw, 2.5rem);
+}
+
+.section-alt {
+  max-width: none;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--teal-line);
+  border-bottom: 1px solid var(--teal-line);
+}
+.section-alt > * { max-width: var(--maxw); margin-left: auto; margin-right: auto; }
+
+.section-title {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  color: var(--silver);
+  text-align: center;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 2px;
+  margin: 0.9rem auto 0;
+  background: var(--gold);
+  opacity: 0.8;
+}
+
+.section-intro {
+  margin: 1.6rem auto 0;
+  max-width: 44rem;
+  text-align: center;
+  color: var(--text-dim);
+}
+
+/* ---------- Pillars (vision) ---------- */
+
+.pillars {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.pillar-media {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--teal-line);
+  aspect-ratio: 16 / 9;
+  background: var(--surface);
+}
+
+.pillar h3 {
+  margin-top: 1.1rem;
+  font-size: 1.25rem;
+  color: var(--gold);
+}
+
+.pillar p { margin-top: 0.5rem; color: var(--text-dim); font-size: 0.97rem; }
+
+/* ---------- Cards (open source, products) ---------- */
+
+.cards {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--teal-line);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+/* The lift applies to any card, not just the ones that are themselves links —
+   the product cards are <article> with a button inside, and scoping this to
+   `a.card` left them inert next to the open-source cards. On those, hovering the
+   card also brightens the button so the cue points at the real click target; the
+   filled state stays reserved for hovering the button directly.
+
+   Selectors are scoped through `.cards` on purpose: a bare `.card:hover` ties
+   `.reveal.in-view { transform: none }` on specificity and loses on order, which
+   would kill the lift outright. The old `a.card:hover` only escaped that by
+   carrying an element selector. */
+.cards .card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+}
+
+.cards .card:hover .btn { border-color: var(--gold-soft); color: var(--gold-soft); }
+
+.card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  background: var(--bg);
+}
+
+.card-body {
+  padding: 1.4rem 1.5rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-body h3 { font-size: 1.3rem; color: var(--silver); transition: color 0.25s; }
+a.card .card-body h3 { color: var(--text); }
+.cards .card:hover .card-body h3 { color: var(--gold-soft); }
+
+.card-body p { margin-top: 0.6rem; color: var(--text-dim); font-size: 0.96rem; flex: 1; }
+
+.card-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--gold);
+}
+
+.btn {
+  align-self: flex-start;
+  margin-top: 1.2rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.95rem;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+/* Second selector only to outrank `.cards .card:hover .btn` above, which is two
+   classes heavier than a bare `.btn:hover` and would otherwise swallow the fill. */
+.btn:hover,
+.cards .card:hover .btn:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+
+/* ---------- Footer ---------- */
+
+.footer {
+  text-align: center;
+  padding: 3rem 1.5rem 2.5rem;
+  border-top: 1px solid var(--teal-line);
+  color: var(--text-dim);
+}
+
+.footer-mark { font-size: 1.2rem; color: var(--silver); }
+.footer p { margin-top: 0.4rem; }
+.footer-links { font-size: 0.95rem; }
+.footer-fine { font-size: 0.8rem; opacity: 0.7; margin-top: 1.2rem; }
+
+/* ---------- Camera motion on stills ----------
+
+   The imagery is generated stills; motion is a slow camera move over a frozen
+   scene, never a change in the scene itself. Three rules keep it convincing:
+
+   1. `alternate` — the camera eases to the far end of its travel and comes
+      back. There is no jump-cut back to the start, so the loop is seamless
+      without a crossfade.
+   2. The timing function must have NON-ZERO velocity at both ends. A normal
+      ease-in-out (`cubic-bezier(.45,0,.55,1)`) comes to a dead stop at each
+      turnaround, and over a 30s+ cycle that stop lasts long enough to read as
+      "the animation broke" rather than "the camera settled". The curve below
+      starts at slope 0.15/0.4, so the camera decelerates into the turn but
+      never actually halts.
+   3. Edge safety — `transform: scale(s) translate(t)` applies the translate
+      first, so the real offset is s*t, while the crop margin scaling leaves is
+      (s-1)/2. Every keyframe pair below keeps s*t under that margin at its
+      SMALLEST scale, otherwise the image edge slides into view.
+
+   Speed matters as much as edge safety: below roughly 1px/s of on-screen travel
+   the move is invisible. tools/check_camera_motion.js measures both.          */
+
+.kb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  animation-timing-function: cubic-bezier(0.4, 0.15, 0.6, 0.85);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Paused while off-screen (set by main.js) — no compositing work for scenes
+   nobody is looking at. */
+.kb-idle { animation-play-state: paused; }
+
+/* Distinct move + duration per scene so the three pillars never march in step.
+   Durations are set so each scene travels at a similar FRACTION of its own box
+   per second (~0.5%/s) — the pillars are a quarter of the hero's width, so
+   equal percentage travel there needs both a wider move and a shorter cycle. */
+.kb-hero        { animation-name: kb-hero;        animation-duration: 34s; }
+.kb-automation  { animation-name: kb-automation;  animation-duration: 26s; animation-delay: -7s; }
+.kb-integration { animation-name: kb-integration; animation-duration: 30s; animation-delay: -17s; }
+.kb-evolution   { animation-name: kb-evolution;   animation-duration: 28s; animation-delay: -11s; }
+
+/* Slow push in, drifting up and to the right toward the sun. */
+@keyframes kb-hero {
+  from { transform: scale(1.12) translate3d(-2.4%,  1.5%, 0); }
+  to   { transform: scale(1.32) translate3d( 2.2%, -1.7%, 0); }
+}
+
+/* Push in across the greenhouse, right to left. */
+@keyframes kb-automation {
+  from { transform: scale(1.16) translate3d( 3.0%,  0.8%, 0); }
+  to   { transform: scale(1.36) translate3d(-3.0%, -0.8%, 0); }
+}
+
+/* Climbs the tower — mostly vertical travel, matching the cutaway. */
+@keyframes kb-integration {
+  from { transform: scale(1.16) translate3d(-1.4%, -3.0%, 0); }
+  to   { transform: scale(1.36) translate3d( 1.2%,  2.8%, 0); }
+}
+
+/* Pulls back as the structure grows, drifting down-left. */
+@keyframes kb-evolution {
+  from { transform: scale(1.36) translate3d(-2.6%,  1.8%, 0); }
+  to   { transform: scale(1.16) translate3d( 2.8%, -2.0%, 0); }
+}
+
+@keyframes sun-breathe {
+  from { opacity: 0.5; }
+  to   { opacity: 1; }
+}
+
+/* ---------- Motion ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  /* The stills stand on their own — hold the camera still, no bloom pulse. */
+  .kb { animation: none; transform: scale(1.06); }
+  .hero-glow { animation: none; opacity: 0.75; }
+}

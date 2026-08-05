@@ -1,1 +1,0 @@
-"use strict";import ImageFilter from"../ImageFilter.js";export default function Blur(e){return ImageFilter.convolute(e,[1/9,1/9,1/9,1/9,1/9,1/9,1/9,1/9,1/9])};

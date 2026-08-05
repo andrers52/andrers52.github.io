@@ -1,5 +1,0 @@
-- try to use my unstopable domain name as the url.
-- fix non-working projects
-  - remove queue-express
-  - or turn it into a dapp :)
-- fix favicon
