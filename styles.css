@@ -88,12 +88,16 @@ a:hover { color: var(--gold-soft); }
 }
 
 .nav {
-  position: relative;
-  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.4rem clamp(1.2rem, 5vw, 4rem);
+  background: linear-gradient(rgba(10, 31, 28, 0.85), rgba(10, 31, 28, 0));
 }
 
 .nav-mark { font-size: 1.15rem; color: var(--silver); white-space: nowrap; }
@@ -166,6 +170,7 @@ a:hover { color: var(--gold-soft); }
   max-width: var(--maxw);
   margin: 0 auto;
   padding: clamp(3.5rem, 8vw, 6rem) clamp(1.2rem, 5vw, 2.5rem);
+  scroll-margin-top: 3.5rem;
 }
 
 .section-alt {
