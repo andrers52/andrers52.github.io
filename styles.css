@@ -46,6 +46,24 @@ a:hover { color: var(--gold-soft); }
 
 .hero-media { position: absolute; inset: 0; overflow: hidden; }
 
+/* Hero slideshow — four stills crossfading on a 36s cycle (9s each). The
+   wrapper owns the fade; the img inside keeps its own .kb camera move, so
+   motion never stops mid-fade. Delays stagger the slides by a quarter cycle. */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: hero-fade 36s linear infinite;
+}
+
+@keyframes hero-fade {
+  0%   { opacity: 0; }
+  4%   { opacity: 1; }
+  25%  { opacity: 1; }
+  29%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
 /* Warm sun bloom over the hero's light source — a slow breathe of light,
    the only thing on the page that changes brightness. */
 .hero-glow {
@@ -392,4 +410,7 @@ a.card .card-body h3 { color: var(--text); }
   /* The stills stand on their own — hold the camera still, no bloom pulse. */
   .kb { animation: none; transform: scale(1.06); }
   .hero-glow { animation: none; opacity: 0.75; }
+  /* No slideshow — hold the first hero still. */
+  .hero-slide { animation: none; opacity: 0; }
+  .hero-slide:first-child { opacity: 1; }
 }
