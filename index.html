@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Silver Studios — a software factory that runs itself</title>
-<meta name="description" content="Silver Studios builds software the way a dark factory builds goods: automated, vertically integrated, continuously evolving. Open-source foundations, working products.">
+<title>Silver Studios — crafting products that grow with people</title>
+<meta name="description" content="Silver Studios is a family studio crafting software, health experiences, and intelligent systems — products built with care, curiosity, and craftsmanship, designed to grow with people.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%230c2e2a'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23e6b84c' stroke-width='6'/></svg>">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -30,68 +30,67 @@
   <nav class="nav">
     <span class="nav-mark">◍ Silver Studios</span>
     <div class="nav-links">
-      <a href="#vision">Vision</a>
-      <a href="#open-source">Open Source</a>
+      <a href="#beliefs">Beliefs</a>
       <a href="#products">Products</a>
+      <a href="#workshop">Workshop</a>
+      <a href="#founders">Our Story</a>
     </div>
   </nav>
   <div class="hero-content reveal">
     <h1 class="wordmark">Silver Studios</h1>
-    <p class="tagline">A software factory that runs itself.</p>
-    <p class="subline">Automated construction. Vertical integration. Continuous evolution —
-      technology that is benign, empowering, and built to care.</p>
-    <a class="cta" href="#vision">See how it works</a>
+    <p class="tagline">Crafting products that grow with people.</p>
+    <p class="subline">We build software, health experiences, and intelligent systems with
+      care, curiosity, and craftsmanship — designed to improve people's lives, today and
+      for years to come.</p>
+    <a class="cta" href="#beliefs">Explore our work</a>
   </div>
 </header>
 
 <main>
 
-<section class="section" id="vision">
-  <h2 class="section-title reveal">The Software Dark Factory</h2>
+<section class="section" id="beliefs">
+  <h2 class="section-title reveal">What We Believe</h2>
+  <div class="prose reveal">
+    <p class="lede">We believe great products are cultivated, not manufactured.</p>
+    <p>Technology should remove unnecessary effort. Health should be sustainable.
+      Software should continuously improve.</p>
+    <p>The best products don't simply solve today's problems — they evolve alongside
+      the people who use them.</p>
+  </div>
+</section>
+
+<section class="section section-alt" id="products">
+  <h2 class="section-title reveal">Products</h2>
   <p class="section-intro reveal">
-    A dark factory is a plant so automated it runs with the lights off. We are building the
-    same thing for software: humans write and approve specifications, autonomous agents build,
-    test, and adapt the code. This site is that vision in progress — a direction, demonstrated
-    by working artifacts.
+    Our philosophy, already at work. Try them right here — no installs, no accounts.
   </p>
-  <div class="pillars">
-    <article class="pillar reveal">
-      <div class="pillar-media">
-        <img class="kb kb-automation" src="assets/automation.jpg" loading="lazy"
-             alt="Gardener robots harvesting glowing fruit in a sunlit vertical greenhouse">
+  <div class="cards">
+    <article class="card reveal">
+      <img src="assets/product_corrida_leve.jpg" alt="Corrida Leve app" loading="lazy">
+      <div class="card-body">
+        <h3>Corrida Leve</h3>
+        <p>A gentle running companion (em português) that takes anyone from the couch to
+          their first light runs — adaptive plans, no pressure, no ads. Installable as a PWA.</p>
+        <a class="btn" href="corrida-leve/" target="_blank" rel="noopener">Open Corrida Leve</a>
       </div>
-      <h3>Automation</h3>
-      <p>Spec in, software out. Build, test, and retry loops run autonomously — people define
-        <em>what</em>, the factory decides <em>how</em>. Humans approve specifications and
-        validate behavior, not lines of code.</p>
     </article>
-    <article class="pillar reveal">
-      <div class="pillar-media">
-        <img class="kb kb-integration" src="assets/integration.jpg" loading="lazy"
-             alt="Cutaway of a vertical tower factory, raw materials at the base rising to finished products at the top">
+    <article class="card reveal">
+      <img src="assets/product_z32.jpg" alt="Z32 gameplay" loading="lazy">
+      <div class="card-body">
+        <h3>Z32</h3>
+        <p>A high-performance game running on our Rust-native engine, compiled to WebAssembly
+          and rendered in your browser. The first real-world validation of the workshop's
+          interactive stack.</p>
+        <a class="btn" href="z32/" target="_blank" rel="noopener">▶ Play Z32</a>
       </div>
-      <h3>Vertical Integration</h3>
-      <p>We own the whole stack — from the utility toolbelt and UI components to the engine
-        and the deployed product. Every project strengthens the next; reusable logic always
-        flows upstream into the shared foundation.</p>
-    </article>
-    <article class="pillar reveal">
-      <div class="pillar-media">
-        <img class="kb kb-evolution" src="assets/evolution.jpg" loading="lazy"
-             alt="Living architecture growing crystalline filaments that mend its own structure">
-      </div>
-      <h3>Continuous Evolution</h3>
-      <p>Software that keeps improving after it ships. An embedded evolutionary runtime
-        mutates and selects behavioral rules against real feedback — adaptation as a
-        property of the system, not a maintenance task.</p>
     </article>
   </div>
 </section>
 
-<section class="section section-alt" id="open-source">
-  <h2 class="section-title reveal">Open Source Foundations</h2>
+<section class="section" id="open-source">
+  <h2 class="section-title reveal">Open Source Libraries</h2>
   <p class="section-intro reveal">
-    The factory's public building blocks — free to use, inspect, and extend.
+    The building blocks we share — free to use, inspect, and extend.
   </p>
   <div class="cards">
     <a class="card reveal" href="https://github.com/andrers52/arslib" target="_blank" rel="noopener">
@@ -115,31 +114,80 @@
   </div>
 </section>
 
-<section class="section" id="products">
-  <h2 class="section-title reveal">Products</h2>
-  <p class="section-intro reveal">
-    Built with the factory's own blocks. Try them right here — no installs, no accounts.
-  </p>
-  <div class="cards">
-    <article class="card reveal">
-      <img src="assets/product_z32.jpg" alt="Z32 gameplay" loading="lazy">
-      <div class="card-body">
-        <h3>Z32</h3>
-        <p>A high-performance game running on our Rust-native engine, compiled to WebAssembly
-          and rendered in your browser. The first real-world validation of the factory's
-          interactive stack.</p>
-        <a class="btn" href="z32/" target="_blank" rel="noopener">▶ Play Z32</a>
+<section class="section section-alt" id="workshop">
+  <h2 class="section-title reveal">The Software Workshop</h2>
+  <div class="prose reveal">
+    <p class="lede">Every craft has its workshop. Ours happens to include autonomous
+      software agents.</p>
+    <p>We're building an environment where people and intelligent systems collaborate to
+      design, build, test, and continuously improve software. Not to replace creativity —
+      to amplify it.</p>
+  </div>
+  <div class="pillars">
+    <article class="pillar reveal">
+      <div class="pillar-media">
+        <img class="kb kb-automation" src="assets/automation.jpg" loading="lazy"
+             alt="Gardener robots harvesting glowing fruit in a sunlit vertical greenhouse">
       </div>
+      <h3>Automation</h3>
+      <p>We automate implementation so people can focus on ideas. Build, test, and retry
+        loops run autonomously — people define <em>what</em>, the workshop decides
+        <em>how</em>. Humans approve specifications and validate behavior, not lines of code.</p>
     </article>
-    <article class="card reveal">
-      <img src="assets/product_corrida_leve.jpg" alt="Corrida Leve app" loading="lazy">
-      <div class="card-body">
-        <h3>Corrida Leve</h3>
-        <p>A gentle running companion (em português) that takes anyone from the couch to
-          their first light runs — adaptive plans, no pressure, no ads. Installable as a PWA.</p>
-        <a class="btn" href="corrida-leve/" target="_blank" rel="noopener">Open Corrida Leve</a>
+    <article class="pillar reveal">
+      <div class="pillar-media">
+        <img class="kb kb-integration" src="assets/integration.jpg" loading="lazy"
+             alt="Cutaway of a vertical tower workshop, raw materials at the base rising to finished products at the top">
       </div>
+      <h3>Shared Foundations</h3>
+      <p>Every project strengthens the next. Reusable logic always flows upstream into the
+        shared foundation — from the utility toolbelt and UI components to the engine and
+        the deployed product.</p>
     </article>
+    <article class="pillar reveal">
+      <div class="pillar-media">
+        <img class="kb kb-evolution" src="assets/still_evolution.jpg" loading="lazy"
+             alt="An organically grown studio house surrounded by a hand-tended garden">
+      </div>
+      <h3>Craftsmanship</h3>
+      <p>Automation helps us move faster. Craftsmanship helps us move in the right
+        direction. Every product is refined through observation, iteration, and care —
+        not rushed to market. We believe lasting quality comes from thoughtful design
+        and continuous learning.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="founders">
+  <h2 class="section-title reveal">The Founders</h2>
+  <div class="prose reveal">
+    <p class="lede">We came from different worlds.</p>
+    <p>One of us spent three decades building software systems. The other has spent years
+      helping people build healthier lives through movement.</p>
+    <p>At first glance those paths seem unrelated. To us, they lead to the same place:
+      lasting progress comes from thoughtful systems — not unnecessary complexity.</p>
+    <p>Silver Studios exists to explore that idea through the products we create.</p>
+  </div>
+</section>
+
+<section class="section section-alt" id="name">
+  <h2 class="section-title reveal">Why &ldquo;Silver Studios&rdquo;?</h2>
+  <div class="prose reveal">
+    <p>The name Silver Studios has a family origin.</p>
+    <p>Years ago, our daughter imagined becoming an artist. She translated our family name,
+      Silva, into Silver — and dreamed of one day creating a studio under that name.</p>
+    <p>When we decided to begin this new chapter together, we asked if we could carry that
+      dream forward.</p>
+    <p>Today, Silver Studios represents more than software. It's a place where different
+      forms of creativity meet.</p>
+  </div>
+</section>
+
+<section class="section" id="forward">
+  <h2 class="section-title reveal">Looking Forward</h2>
+  <div class="prose reveal">
+    <p class="lede">We're building this company slowly. Independently. One product at a time.</p>
+    <p>Because we believe meaningful things aren't rushed.</p>
   </div>
 </section>
 

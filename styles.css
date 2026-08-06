@@ -204,6 +204,18 @@ a:hover { color: var(--gold-soft); }
   color: var(--text-dim);
 }
 
+/* ---------- Prose (beliefs, story sections) ---------- */
+
+.prose {
+  margin: 1.6rem auto 0;
+  max-width: 40rem;
+  color: var(--text-dim);
+}
+
+.prose p + p { margin-top: 1rem; }
+
+.prose .lede { color: var(--text); font-size: 1.12rem; }
+
 /* ---------- Pillars (vision) ---------- */
 
 .pillars {
