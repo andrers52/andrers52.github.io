@@ -30,83 +30,106 @@
   <nav class="nav">
     <span class="nav-mark">◍ Silver Studios</span>
     <div class="nav-links">
-      <a href="#beliefs">Beliefs</a>
-      <a href="#products">Products</a>
-      <a href="#workshop">Workshop</a>
-      <a href="#story">Our Story</a>
+      <a href="#beliefs" data-i18n="nav.beliefs">Beliefs</a>
+      <a href="#products" data-i18n="nav.products">Products</a>
+      <a href="#workshop" data-i18n="nav.workshop">Workshop</a>
+      <a href="#story" data-i18n="nav.story">Our Story</a>
+    </div>
+    <div class="lang-switch" role="group" aria-label="Language / Idioma">
+      <button class="lang-btn" data-lang="pt" aria-label="Português (Brasil)" title="Português (Brasil)">
+        <svg viewBox="0 0 22 15" aria-hidden="true">
+          <rect width="22" height="15" fill="#009c3b"/>
+          <polygon points="11,1.8 20.2,7.5 11,13.2 1.8,7.5" fill="#ffdf00"/>
+          <circle cx="11" cy="7.5" r="3.1" fill="#002776"/>
+        </svg>
+      </button>
+      <button class="lang-btn" data-lang="en" aria-label="English (US)" title="English (US)">
+        <svg viewBox="0 0 22 15" aria-hidden="true">
+          <rect width="22" height="15" fill="#b22234"/>
+          <g fill="#ffffff">
+            <rect y="1.15" width="22" height="1.15"/>
+            <rect y="3.45" width="22" height="1.15"/>
+            <rect y="5.75" width="22" height="1.15"/>
+            <rect y="8.05" width="22" height="1.15"/>
+            <rect y="10.35" width="22" height="1.15"/>
+            <rect y="12.65" width="22" height="1.15"/>
+          </g>
+          <rect width="9.5" height="8" fill="#3c3b6e"/>
+        </svg>
+      </button>
     </div>
   </nav>
   <div class="hero-content reveal">
     <h1 class="wordmark">Silver Studios</h1>
-    <p class="tagline">Crafting products that grow with people.</p>
-    <p class="subline">We create software, health experiences, and intelligent systems with
+    <p class="tagline" data-i18n="hero.tagline">Crafting products that grow with people.</p>
+    <p class="subline" data-i18n="hero.subline">We create software, health experiences, and intelligent systems with
       care, curiosity, and craftsmanship — designed to improve people's lives, today and
       for years to come.</p>
-    <a class="cta" href="#beliefs">Explore our work</a>
+    <a class="cta" href="#beliefs" data-i18n="hero.cta">Explore our work</a>
   </div>
 </header>
 
 <main>
 
 <section class="section" id="beliefs">
-  <h2 class="section-title reveal">What We Believe</h2>
+  <h2 class="section-title reveal" data-i18n="beliefs.title">What We Believe</h2>
   <div class="prose reveal">
-    <p class="lede">We believe great products are cultivated, not manufactured.</p>
-    <p>Technology should remove unnecessary effort. Health should be sustainable.
+    <p class="lede" data-i18n="beliefs.lede">We believe great products are cultivated, not manufactured.</p>
+    <p data-i18n="beliefs.p1">Technology should remove unnecessary effort. Health should be sustainable.
       Software should continuously improve.</p>
-    <p>The best products don't simply solve today's problems — they evolve alongside
+    <p data-i18n="beliefs.p2">The best products don't simply solve today's problems — they evolve alongside
       the people who use them.</p>
   </div>
 </section>
 
 <section class="section section-alt" id="products">
-  <h2 class="section-title reveal">Products</h2>
-  <p class="section-intro reveal">
+  <h2 class="section-title reveal" data-i18n="products.title">Products</h2>
+  <p class="section-intro reveal" data-i18n="products.intro">
     Our philosophy, already at work. Try them right here — no installs, no accounts.
   </p>
   <div class="cards">
     <article class="card reveal">
-      <img src="assets/product_corrida_leve.jpg" alt="Corrida Leve app" loading="lazy">
+      <img src="assets/product_corrida_leve.jpg" alt="Corrida Leve app" data-i18n-alt="products.cl.alt" loading="lazy">
       <div class="card-body">
         <h3>Corrida Leve</h3>
-        <p>A gentle running companion (em português) that takes anyone from the couch to
+        <p data-i18n="products.cl.desc">A gentle running companion (em português) that takes anyone from the couch to
           their first light runs — adaptive plans, no pressure, no ads. Installable as a PWA.</p>
-        <a class="btn" href="corrida-leve/" target="_blank" rel="noopener">Open Corrida Leve</a>
+        <a class="btn" href="corrida-leve/" target="_blank" rel="noopener" data-i18n="products.cl.btn">Open Corrida Leve</a>
       </div>
     </article>
     <article class="card reveal">
-      <img src="assets/product_z32.jpg" alt="Z32 gameplay" loading="lazy">
+      <img src="assets/product_z32.jpg" alt="Z32 gameplay" data-i18n-alt="products.z32.alt" loading="lazy">
       <div class="card-body">
         <h3>Z32</h3>
-        <p>A high-performance game running on our Rust-native engine, compiled to WebAssembly
+        <p data-i18n="products.z32.desc">A high-performance game running on our Rust-native engine, compiled to WebAssembly
           and rendered in your browser. The first real-world validation of the workshop's
           interactive stack.</p>
-        <a class="btn" href="z32/" target="_blank" rel="noopener">▶ Play Z32</a>
+        <a class="btn" href="z32/" target="_blank" rel="noopener" data-i18n="products.z32.btn">▶ Play Z32</a>
       </div>
     </article>
   </div>
 </section>
 
 <section class="section" id="open-source">
-  <h2 class="section-title reveal">Open Source Libraries</h2>
-  <p class="section-intro reveal">
+  <h2 class="section-title reveal" data-i18n="oss.title">Open Source Libraries</h2>
+  <p class="section-intro reveal" data-i18n="oss.intro">
     The building blocks we share — free to use, inspect, and extend.
   </p>
   <div class="cards">
     <a class="card reveal" href="https://github.com/andrers52/arslib" target="_blank" rel="noopener">
-      <img src="assets/still_garden_hands.jpg" alt="Robotic hands offering glowing seeds of light above a garden" loading="lazy">
+      <img src="assets/still_garden_hands.jpg" alt="Robotic hands offering glowing seeds of light above a garden" data-i18n-alt="oss.arslib.alt" loading="lazy">
       <div class="card-body">
         <h3>arslib</h3>
-        <p>The core TypeScript utility toolbelt. Zero-dependency, generic, comprehensive —
+        <p data-i18n="oss.arslib.desc">The core TypeScript utility toolbelt. Zero-dependency, generic, comprehensive —
           math, data structures, testing, and unified persistent storage for browser and Node.</p>
         <span class="card-link">github.com/andrers52/arslib →</span>
       </div>
     </a>
     <a class="card reveal" href="https://github.com/andrers52/ars-web-components" target="_blank" rel="noopener">
-      <img src="assets/still_components.jpg" alt="Luminous modular components assembling into a structure" loading="lazy">
+      <img src="assets/still_components.jpg" alt="Luminous modular components assembling into a structure" data-i18n-alt="oss.awc.alt" loading="lazy">
       <div class="card-body">
         <h3>ars-web-components</h3>
-        <p>Browser-native UI components, TypeScript-first. Shadow-DOM encapsulation and a
+        <p data-i18n="oss.awc.desc">Browser-native UI components, TypeScript-first. Shadow-DOM encapsulation and a
           mixin coordination system for gestures, pointers, and inter-component calls.</p>
         <span class="card-link">github.com/andrers52/ars-web-components →</span>
       </div>
@@ -115,11 +138,11 @@
 </section>
 
 <section class="section section-alt" id="workshop">
-  <h2 class="section-title reveal">The Software Workshop</h2>
+  <h2 class="section-title reveal" data-i18n="workshop.title">The Software Workshop</h2>
   <div class="prose reveal">
-    <p class="lede">Every craft has its workshop. Ours happens to include autonomous
+    <p class="lede" data-i18n="workshop.lede">Every craft has its workshop. Ours happens to include autonomous
       software collaborators.</p>
-    <p>We're building an environment where people and intelligent systems collaborate to
+    <p data-i18n="workshop.p">We're building an environment where people and intelligent systems collaborate to
       design, build, test, and continuously improve software. Not to replace creativity —
       to amplify it.</p>
   </div>
@@ -127,30 +150,30 @@
     <article class="pillar reveal">
       <div class="pillar-media">
         <img class="kb kb-automation" src="assets/automation.jpg" loading="lazy"
-             alt="Gardener robots harvesting glowing fruit in a sunlit vertical greenhouse">
+             alt="Gardener robots harvesting glowing fruit in a sunlit vertical greenhouse" data-i18n-alt="workshop.automation.alt">
       </div>
-      <h3>Automation</h3>
-      <p>We automate implementation so people can focus on ideas. Build, test, and retry
+      <h3 data-i18n="workshop.automation.title">Automation</h3>
+      <p data-i18n="workshop.automation.p">We automate implementation so people can focus on ideas. Build, test, and retry
         loops run autonomously — people define <em>what</em>, the workshop decides
         <em>how</em>. Humans approve specifications and validate behavior, not lines of code.</p>
     </article>
     <article class="pillar reveal">
       <div class="pillar-media">
         <img class="kb kb-integration" src="assets/foundations.jpg" loading="lazy"
-             alt="A great tree whose glowing roots spread through the soil, nourishing terraced workshops across a sunlit hillside">
+             alt="A great tree whose glowing roots spread through the soil, nourishing terraced workshops across a sunlit hillside" data-i18n-alt="workshop.foundations.alt">
       </div>
-      <h3>Shared Foundations</h3>
-      <p>Every project strengthens the next. Reusable logic always flows upstream into the
+      <h3 data-i18n="workshop.foundations.title">Shared Foundations</h3>
+      <p data-i18n="workshop.foundations.p">Every project strengthens the next. Reusable logic always flows upstream into the
         shared foundation — from the utility toolbelt and UI components to the engine and
         the deployed product.</p>
     </article>
     <article class="pillar reveal">
       <div class="pillar-media">
         <img class="kb kb-evolution" src="assets/still_evolution.jpg" loading="lazy"
-             alt="An organically grown studio house surrounded by a hand-tended garden">
+             alt="An organically grown studio house surrounded by a hand-tended garden" data-i18n-alt="workshop.craft.alt">
       </div>
-      <h3>Craftsmanship</h3>
-      <p>Automation helps us move faster. Craftsmanship helps us move in the right
+      <h3 data-i18n="workshop.craft.title">Craftsmanship</h3>
+      <p data-i18n="workshop.craft.p">Automation helps us move faster. Craftsmanship helps us move in the right
         direction. Every product is refined through observation, iteration, and care —
         not rushed to market. We believe lasting quality comes from thoughtful design
         and continuous learning.</p>
@@ -159,39 +182,39 @@
 </section>
 
 <section class="section section-alt" id="story">
-  <h2 class="section-title reveal">Our Story</h2>
-  <p class="section-intro reveal">Two paths, one philosophy.</p>
+  <h2 class="section-title reveal" data-i18n="story.title">Our Story</h2>
+  <p class="section-intro reveal" data-i18n="story.intro">Two paths, one philosophy.</p>
   <div class="prose reveal">
-    <p class="lede">We came from different worlds.</p>
-    <p>One of us spent three decades building software systems. The other has spent years
+    <p class="lede" data-i18n="story.lede">We came from different worlds.</p>
+    <p data-i18n="story.p1">One of us spent three decades building software systems. The other has spent years
       helping people build healthier lives through movement.</p>
-    <p>At first glance those paths seem unrelated. To us, they lead to the same place:
+    <p data-i18n="story.p2">At first glance those paths seem unrelated. To us, they lead to the same place:
       lasting progress comes from thoughtful systems — not unnecessary complexity.</p>
-    <p>Silver Studios exists to explore that idea through the products we create.</p>
+    <p data-i18n="story.p3">Silver Studios exists to explore that idea through the products we create.</p>
   </div>
-  <h3 class="story-sub reveal">Why &ldquo;Silver Studios&rdquo;?</h3>
+  <h3 class="story-sub reveal" data-i18n="story.name.title">Why &ldquo;Silver Studios&rdquo;?</h3>
   <div class="prose reveal">
-    <p>The name Silver Studios has a family origin.</p>
-    <p>Years ago, our daughter imagined becoming an artist. She translated our family name,
+    <p data-i18n="story.name.p1">The name Silver Studios has a family origin.</p>
+    <p data-i18n="story.name.p2">Years ago, our daughter imagined becoming an artist. She translated our family name,
       Silva, into Silver — and dreamed of one day creating a studio under that name.</p>
-    <p>When we decided to begin this new chapter together, we asked if we could carry that
+    <p data-i18n="story.name.p3">When we decided to begin this new chapter together, we asked if we could carry that
       dream forward.</p>
-    <p>Today, Silver Studios represents more than software. It's a place where different
+    <p data-i18n="story.name.p4">Today, Silver Studios represents more than software. It's a place where different
       forms of creativity meet.</p>
   </div>
 </section>
 
 <section class="section" id="forward">
-  <h2 class="section-title reveal">Looking Forward</h2>
+  <h2 class="section-title reveal" data-i18n="forward.title">Looking Forward</h2>
   <div class="prose reveal">
-    <p class="lede">We're building this company slowly. Independently. One product at a time.</p>
-    <p>Because we believe meaningful things aren't rushed.</p>
+    <p class="lede" data-i18n="forward.lede">We're building this company slowly. Independently. One product at a time.</p>
+    <p data-i18n="forward.p">Because we believe meaningful things aren't rushed.</p>
   </div>
   <ul class="manifesto reveal">
-    <li>We believe technology should help people flourish.</li>
-    <li>We believe health should be sustainable.</li>
-    <li>We believe craftsmanship still matters.</li>
-    <li>We believe the best products grow over time.</li>
+    <li data-i18n="forward.m1">We believe technology should help people flourish.</li>
+    <li data-i18n="forward.m2">We believe health should be sustainable.</li>
+    <li data-i18n="forward.m3">We believe craftsmanship still matters.</li>
+    <li data-i18n="forward.m4">We believe the best products grow over time.</li>
   </ul>
 </section>
 
@@ -199,16 +222,16 @@
 
 <footer class="footer">
   <p class="footer-mark">◍ Silver Studios</p>
-  <p>Software grown, not assembled.</p>
+  <p data-i18n="footer.tagline">Software grown, not assembled.</p>
   <p class="footer-links">
-    <a href="#products">Products</a>
-    · <a href="#open-source">Open Source</a>
-    · <a href="#story">Our Story</a>
+    <a href="#products" data-i18n="nav.products">Products</a>
+    · <a href="#open-source" data-i18n="footer.openSource">Open Source</a>
+    · <a href="#story" data-i18n="nav.story">Our Story</a>
     · <a href="https://github.com/andrers52" target="_blank" rel="noopener">GitHub</a>
-    · <a href="#top">Back to top</a>
+    · <a href="#top" data-i18n="footer.backToTop">Back to top</a>
   </p>
-  <p class="footer-identity">Built in Brazil. Crafted for everyone.</p>
-  <p class="footer-fine">All imagery on this page was generated locally — no stock photos, no tracking.</p>
+  <p class="footer-identity" data-i18n="footer.identity">Built in Brazil. Crafted for everyone.</p>
+  <p class="footer-fine" data-i18n="footer.fine">All imagery on this page was generated locally — no stock photos, no tracking.</p>
 </footer>
 
 <script type="module" src="main.js"></script>

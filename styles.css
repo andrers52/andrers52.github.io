@@ -134,6 +134,30 @@ a:hover { color: var(--gold-soft); }
 }
 .nav-links a:hover { opacity: 1; color: var(--gold-bright-soft); }
 
+/* Language switch — small inline-SVG flags (flag emoji don't render on every
+   platform); the active language keeps full opacity and a gold ring. */
+.lang-switch { display: flex; gap: 0.45rem; align-items: center; }
+
+.lang-btn {
+  padding: 0.2rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+  opacity: 0.55;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+.lang-btn:hover { opacity: 0.9; }
+.lang-btn.active { opacity: 1; border-color: var(--gold-bright); }
+
+.lang-btn svg {
+  display: block;
+  width: 22px;
+  height: 15px;
+  border-radius: 3px;
+}
+
 .hero-content {
   position: relative;
   z-index: 2;
