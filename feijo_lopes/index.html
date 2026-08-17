@@ -7,9 +7,9 @@
 <meta name="description" content="Uma exploração: como IA pode preparar o terreno para a análise jurídica humana.">
 <style>
   :root {
-    --bg: #08111d;
-    --bg-soft: #0d1b2a;
-    --panel: #10233a;
+    --bg: #0d1c2e;
+    --bg-soft: #12253c;
+    --panel: #17304c;
     --accent: #34d3c3;
     --accent-soft: rgba(52, 211, 195, 0.14);
     --text: #e8eef4;
@@ -54,7 +54,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(8, 17, 29, 0.68) 0%, rgba(8, 17, 29, 0.55) 50%, rgba(8, 17, 29, 0.72) 100%);
+    background: linear-gradient(180deg, rgba(13, 28, 46, 0.55) 0%, rgba(13, 28, 46, 0.42) 50%, rgba(13, 28, 46, 0.60) 100%);
   }
   .content.center { text-align: center; }
 
@@ -520,7 +520,9 @@
 
   var scene = new THREE.Scene();
   var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
-  camera.position.set(4.4, 3.4, 5.8);
+  // distância maior + tilt menor: o balanço idle não pode mais jogar
+  // os cantos do cubo para fora do canvas
+  camera.position.set(5.6, 4.2, 7.2);
   camera.lookAt(0, 0, 0);
 
   scene.add(new THREE.AmbientLight(0xffffff, 0.6));
@@ -533,8 +535,9 @@
   var pivot = new THREE.Group();  // camada em rotação (filho do root:
   root.add(pivot);                // giros ficam alinhados à grade)
 
-  var COLORS = { px: 0xc41e3a, nx: 0xff5800, py: 0xffffff,
-                 ny: 0xffd500, pz: 0x009b48, nz: 0x0046ad };
+  // faces em tons de cinza, do mais claro ao mais escuro
+  var COLORS = { px: 0xf0f0f0, nx: 0x9a9a9a, py: 0xd6d6d6,
+                 ny: 0x767676, pz: 0xb8b8b8, nz: 0x545454 };
   var INNER = 0x1a2027;
   var GEO = new THREE.BoxGeometry(0.94, 0.94, 0.94);
   function mat(c) { return new THREE.MeshLambertMaterial({ color: c }); }
@@ -608,7 +611,7 @@
     }
     // balanço suave contínuo — acontece até durante os giros
     root.rotation.y += dt * 0.35;
-    root.rotation.x = 0.35 + Math.sin(clock.elapsedTime * 0.4) * 0.08;
+    root.rotation.x = 0.24 + Math.sin(clock.elapsedTime * 0.4) * 0.06;
     renderer.render(scene, camera);
   })();
 
