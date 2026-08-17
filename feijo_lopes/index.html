@@ -242,6 +242,30 @@
     z-index: 11;
     pointer-events: none;
   }
+
+  #lang {
+    position: fixed;
+    top: 1.6rem;
+    right: 10rem;
+    z-index: 11;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    user-select: none;
+  }
+  #lang button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    letter-spacing: inherit;
+    color: var(--muted);
+    opacity: 0.55;
+    padding: 0.2rem 0.35rem;
+    transition: color 0.2s, opacity 0.2s;
+  }
+  #lang button.on { color: var(--accent); opacity: 1; font-weight: 600; }
+  #lang button:hover { opacity: 1; }
+  #lang .sep { color: var(--muted); opacity: 0.4; }
 </style>
 </head>
 <body>
@@ -500,6 +524,9 @@
 
 <!-- O canvas fica DEPOIS das sections: as slides (fixed, com transform) criam
      contexto de empilhamento e cobrem o cubo se ele vier antes no DOM. -->
+<div id="lang" role="group" aria-label="Idioma / Language">
+  <button data-lang="pt" class="on">PT-BR</button><span class="sep">|</span><button data-lang="en">EN</button>
+</div>
 <canvas id="rubik" width="120" height="120" aria-hidden="true"></canvas>
 
 <script src="assets/vendor/three.min.js"></script>
@@ -692,6 +719,224 @@
 
   var start = parseInt(location.hash.slice(1), 10);
   show(isNaN(start) ? 0 : start - 1);
+})();
+</script>
+
+<script>
+// Seletor de idioma: PT-BR é o fonte (capturado do DOM na carga); EN vive aqui.
+// A troca substitui o innerHTML de cada .content — imagens são re-inseridas,
+// mas vêm do cache, sem reload visível.
+(function () {
+  "use strict";
+  var contents = Array.prototype.slice.call(document.querySelectorAll(".slide .content"));
+  var PT = contents.map(function (c) { return c.innerHTML; });
+
+  var EN = [
+`<div class="kicker">Hypothesis and exploration</div>
+    <h1>AI as support<br>for legal analysis</h1>
+    <p class="subtitle">Not a ready-made solution — the exploration of a hypothesis.</p>`,
+
+`<div class="kicker">About me</div>
+    <h2>André Silva</h2>
+    <p class="quote">“A software engineer whose path spans the public sector
+      and global technology companies. Today I lead Silver Studios, where I study
+      applications of AI to expand the capacity for analysis in complex contexts.”</p>
+    <ul class="points">
+      <li>Civil servant <span class="dim">— municipal, state and federal government</span></li>
+      <li>Startup <span class="dim">— Meemo</span></li>
+      <li>Coinbase <span class="dim">— California</span></li>
+      <li>Silver Studios <span class="dim">— my own company, current focus on AI</span></li>
+    </ul>
+    <p class="formation"><span>Education</span>
+      Computer Science, UFRGS · MSc in Natural Language Processing, PUC-RS ·
+      PhD in Informatics in Education, UFRGS · MBA in Business Management, FGV</p>`,
+
+`<div class="kicker">The problem</div>
+    <h2>Too much information, too scattered</h2>
+    <p class="statement">In a legal context, information is spread across
+      <strong>many documents, formats, moments, and levels of relevance</strong>.</p>
+    <ul class="points">
+      <li>The problem is not a <span class="dim">lack</span> of information.</li>
+      <li>It is <strong>turning scattered information into understanding</strong>.</li>
+    </ul>`,
+
+`<div class="kicker">The problem</div>
+    <h2>Effort is in the wrong place</h2>
+    <div class="ops">
+      <span>Search</span><span>Reading</span><span>Locating</span>
+      <span>Comparing</span><span>Organizing</span><span>Checking</span>
+    </div>
+    <p class="statement">When every analysis starts almost from scratch,
+      <strong>operational effort becomes part of the problem itself</strong>.</p>
+    <p class="statement" style="margin-top:1rem; color:var(--muted); font-size:clamp(1.05rem,2vw,1.5rem);">
+      The lack of standardization stops being just an efficiency issue —
+      and starts affecting the capacity for analysis.</p>`,
+
+`<div class="kicker">Our hypothesis</div>
+    <p class="statement" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">
+      What if AI could <strong>better prepare the ground</strong><br>
+      for human analysis to happen?</p>
+    <div class="flow">
+      <span class="node">organizes</span>
+      <span class="node">connects</span>
+      <span class="node">retrieves</span>
+      <span class="node">structures</span>
+      <span class="node">presents</span>
+    </div>
+    <p class="subtitle">Not “AI doing legal analysis.”<br>Judgment remains human.</p>`,
+
+`<div class="kicker">A fair question</div>
+    <h2>Why not just a chat?</h2>
+    <p class="statement">A chat solves the <strong>conversation interface</strong>.<br>
+      It does not necessarily solve the <strong>structure of the work</strong>.</p>
+    <div class="flow" style="justify-content:flex-start;">
+      <span class="node">documents</span><span class="arrow">→</span>
+      <span class="node">organization</span><span class="arrow">→</span>
+      <span class="node hl">semantic representation</span><span class="arrow">→</span>
+      <span class="node">retrieval</span><span class="arrow">→</span>
+      <span class="node">questions</span><span class="arrow">→</span>
+      <span class="node">analysis</span>
+    </div>
+    <p class="statement" style="color:var(--muted); font-size:clamp(1.05rem,2vw,1.5rem);">
+      Chat can be an interface to this layer — but it is not the whole layer.</p>`,
+
+`<div class="kicker">How we explored</div>
+    <h2>The prototype flow</h2>
+    <div class="flow">
+      <span class="node hl">Ingestion</span><span class="arrow">→</span>
+      <span class="node hl">Semantic enrichment</span><span class="arrow">→</span>
+      <span class="node hl">Structured base</span><span class="arrow">→</span>
+      <span class="node hl">Tools</span><span class="arrow">→</span>
+      <span class="node hl">Analysis</span>
+    </div>
+    <p class="quote" style="border:none; padding:0;">“Instead of starting from the answer,
+      we started by trying to improve the representation of the material itself.”</p>`,
+
+`<div>
+      <div class="kicker">Step 1</div>
+      <h2>Ingestion</h2>
+      <p class="statement">First, turn heterogeneous documents into a
+        <strong>consistent structure</strong> the system can work with.</p>
+      <ul class="points">
+        <li>Organization and standardization</li>
+        <li><span class="dim">The step before any more sophisticated intelligence</span></li>
+      </ul>
+    </div>
+    <figure>
+      <img src="assets/2_visualizador.png" alt="Visualizador de documento do processo sobre o grafo de conhecimento">
+      <figcaption>A 398-page case file, already navigable inside the base.</figcaption>
+    </figure>`,
+
+`<div class="kicker">Step 2</div>
+    <h2>Semantic enrichment</h2>
+    <p class="statement">It is not just storing words or pages.<br>
+      It is creating a layer that <strong>represents concepts and relationships</strong> associated with the text.</p>
+    <div class="chain">
+      <span class="cnode">concept</span><span class="carrow">→</span>
+      <span class="cnode">occurrence</span><span class="carrow">→</span>
+      <span class="cnode">relationship</span><span class="carrow">→</span>
+      <span class="cnode">document</span><span class="carrow">→</span>
+      <span class="cnode">passage</span>
+    </div>`,
+
+`<div class="kicker">The concept, anchored</div>
+    <h2>A concept connected to the passage</h2>
+    <figure>
+      <img src="assets/3_conceito_conectado_ao_texto.png" alt="Conceito conectado por arestas aos trechos do documento onde aparece">
+      <figcaption>Each edge links the concept to a concrete point in the original text.</figcaption>
+    </figure>
+    <p class="statement" style="margin-top:1.2rem;">
+      <strong>Traceability</strong>: raising the level of abstraction
+      <strong>without losing the origin of the information</strong>.</p>`,
+
+`<div>
+      <div class="kicker">Structure</div>
+      <h2>Document segmentation</h2>
+      <p class="statement">The document now exists as
+        <strong>passages and sections</strong> — smaller, semantically more useful units.</p>
+      <ul class="points">
+        <li>Locate information better</li>
+        <li>Relate concepts</li>
+        <li>Retrieve specific contexts</li>
+        <li><span class="dim">Not every question needs to operate on the entire document</span></li>
+      </ul>
+    </div>
+    <figure>
+      <img src="assets/4_identificacao_de_trechos_do_processo.png" alt="Trecho identificado do processo — Recurso Especial, páginas 299 a 355 — aberto no visualizador">
+      <figcaption>“Special Appeal (GE Healthcare), pp. 299–355”: an identified, named, navigable passage.</figcaption>
+    </figure>`,
+
+`<div class="kicker">The exploration becomes interactive</div>
+    <h2>Questions about concepts</h2>
+    <p class="statement"><strong>Flexibility in the question</strong> — the system understands
+      that different phrasings seek the same concept — with <strong>precision in the evidence</strong>:
+      the answer points to where it appears in the document.</p>
+    <figure>
+      <img src="assets/5_perguntando_sobre_conceitos.png" alt="Pergunta em linguagem natural, com variações e imprecisões, feita ao sistema">
+      <figcaption>The question tolerates variation — even typos.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/6_resposta.png" alt="Resposta do sistema citando os trechos do documento que sustentam cada afirmação">
+      <figcaption>The answer comes anchored to the passages that support it.</figcaption>
+    </figure>`,
+
+`<div>
+      <div class="kicker">What this enables</div>
+      <h2>And from this emerges an analysis layer</h2>
+      <p class="statement">The structure that was built begins to dialogue with <strong>real questions</strong>:</p>
+      <ul class="points">
+        <li>What happened? What is the current situation?</li>
+        <li>What is pending?</li>
+        <li>Which information supports a conclusion?</li>
+        <li>Which points deserve attention?</li>
+        <li>Which hypotheses can be considered?</li>
+      </ul>
+      <p class="statement" style="margin-top:1rem; color:var(--muted); font-size:clamp(1rem,1.9vw,1.4rem);">
+        This does not replace human judgment. It <strong style="color:var(--accent);">prepares, organizes, and expands</strong> the capacity for analysis.</p>
+    </div>
+    <figure>
+      <img src="assets/1_ui_de_analise.png" alt="Interface de análise de caso: aspectos pendentes do processo organizados para revisão">
+      <figcaption>The case analysis organized by aspect — parties, origin, service of process, attachment, risks — each anchored in the base.</figcaption>
+    </figure>`,
+
+`<div class="kicker">Closing</div>
+    <h1 style="font-size:clamp(2rem,4.5vw,3.4rem);">AI as support for analysis</h1>
+    <p class="statement" style="margin-top:2rem;">
+      If the lawyer's time shifts <strong>from searching to strategy</strong>,<br>
+      the hypothesis starts to make sense.</p>
+    <p class="subtitle" style="margin-top:2.4rem;">The question is not whether AI can read a case file — it can.<br>
+      It is whether we can get the lawyer to spend less time searching for information<br>
+      and more time thinking about what it means.</p>`
+  ];
+
+  var TITLE = {
+    pt: "IA como apoio à análise jurídica — Hipótese e exploração",
+    en: "AI as support for legal analysis — Hypothesis and exploration"
+  };
+  var HINT = {
+    pt: "<kbd>PgUp</kbd> / <kbd>PgDn</kbd> para navegar",
+    en: "<kbd>PgUp</kbd> / <kbd>PgDn</kbd> to navigate"
+  };
+
+  function setLang(lang) {
+    var src = lang === "en" ? EN : PT;
+    contents.forEach(function (c, i) { c.innerHTML = src[i]; });
+    document.documentElement.lang = lang === "en" ? "en" : "pt-BR";
+    document.title = TITLE[lang];
+    document.getElementById("hint").innerHTML = HINT[lang];
+    document.querySelectorAll("#lang button").forEach(function (b) {
+      b.classList.toggle("on", b.dataset.lang === lang);
+    });
+    try { localStorage.setItem("deck.lang", lang); } catch (e) { /* sem storage */ }
+  }
+
+  document.querySelectorAll("#lang button").forEach(function (b) {
+    b.addEventListener("click", function () { setLang(b.dataset.lang); });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem("deck.lang"); } catch (e) { /* sem storage */ }
+  if (saved === "en") setLang("en");
 })();
 </script>
 
