@@ -232,6 +232,16 @@
   .navbtn:hover { opacity: 1; color: var(--accent); border-color: var(--accent); }
   #prev { left: 1rem; }
   #next { right: 1rem; }
+
+  #rubik {
+    position: fixed;
+    top: 0.9rem;
+    right: 1rem;
+    width: 120px;
+    height: 120px;
+    z-index: 11;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
@@ -488,6 +498,124 @@
   </div>
 </section>
 
+<!-- O canvas fica DEPOIS das sections: as slides (fixed, com transform) criam
+     contexto de empilhamento e cobrem o cubo se ele vier antes no DOM. -->
+<canvas id="rubik" width="120" height="120" aria-hidden="true"></canvas>
+
+<script src="assets/vendor/three.min.js"></script>
+<script>
+// Cubo de Rubik decorativo: 27 cubinhos reais; cada troca de slide dispara
+// alguns giros aleatórios de camada (moves de 90°), então a configuração
+// muda de verdade — não é um embaralhamento falso trocando texturas.
+(function () {
+  "use strict";
+  if (!window.THREE) return;
+  var canvas = document.getElementById("rubik");
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  } catch (e) { return; } // sem WebGL: o canvas some junto com o fundo
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(120, 120, false);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+  camera.position.set(4.4, 3.4, 5.8);
+  camera.lookAt(0, 0, 0);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+  var key = new THREE.DirectionalLight(0xffffff, 0.9);
+  key.position.set(5, 8, 6);
+  scene.add(key);
+
+  var root = new THREE.Group();   // cubo inteiro (balanço idle)
+  scene.add(root);
+  var pivot = new THREE.Group();  // camada em rotação (filho do root:
+  root.add(pivot);                // giros ficam alinhados à grade)
+
+  var COLORS = { px: 0xc41e3a, nx: 0xff5800, py: 0xffffff,
+                 ny: 0xffd500, pz: 0x009b48, nz: 0x0046ad };
+  var INNER = 0x1a2027;
+  var GEO = new THREE.BoxGeometry(0.94, 0.94, 0.94);
+  function mat(c) { return new THREE.MeshLambertMaterial({ color: c }); }
+
+  var cubies = [];
+  [-1, 0, 1].forEach(function (x) {
+    [-1, 0, 1].forEach(function (y) {
+      [-1, 0, 1].forEach(function (z) {
+        var m = new THREE.Mesh(GEO, [
+          mat(x === 1 ? COLORS.px : INNER), mat(x === -1 ? COLORS.nx : INNER),
+          mat(y === 1 ? COLORS.py : INNER), mat(y === -1 ? COLORS.ny : INNER),
+          mat(z === 1 ? COLORS.pz : INNER), mat(z === -1 ? COLORS.nz : INNER)
+        ]);
+        m.position.set(x, y, z);
+        root.add(m);
+        cubies.push(m);
+      });
+    });
+  });
+
+  var HALF = Math.PI / 2;
+  var queue = [];
+  var anim = null;
+
+  function shuffle(n) {
+    for (var i = 0; i < n; i++) {
+      queue.push({
+        axis: ["x", "y", "z"][Math.floor(Math.random() * 3)],
+        layer: [-1, 0, 1][Math.floor(Math.random() * 3)],
+        dir: Math.random() < 0.5 ? 1 : -1
+      });
+    }
+  }
+
+  function startMove(m) {
+    pivot.rotation.set(0, 0, 0);
+    pivot.updateMatrixWorld(true);
+    cubies.forEach(function (c) {
+      if (Math.round(c.position[m.axis]) === m.layer) pivot.attach(c);
+    });
+    anim = { axis: m.axis, target: m.dir * HALF, t: 0, dur: 0.3 };
+  }
+
+  var euler = new THREE.Euler();
+  function endMove() {
+    pivot.updateMatrixWorld(true);
+    while (pivot.children.length) {
+      var c = pivot.children[0];
+      root.attach(c);
+      // trava na grade: posição inteira, orientação em múltiplos de 90°
+      c.position.set(Math.round(c.position.x), Math.round(c.position.y), Math.round(c.position.z));
+      euler.setFromQuaternion(c.quaternion, "XYZ");
+      euler.set(Math.round(euler.x / HALF) * HALF,
+                Math.round(euler.y / HALF) * HALF,
+                Math.round(euler.z / HALF) * HALF);
+      c.quaternion.setFromEuler(euler);
+    }
+    anim = null;
+  }
+
+  var clock = new THREE.Clock();
+  (function tick() {
+    requestAnimationFrame(tick);
+    var dt = Math.min(clock.getDelta(), 0.05);
+    if (!anim && queue.length) startMove(queue.shift());
+    if (anim) {
+      anim.t += dt;
+      var k = Math.min(anim.t / anim.dur, 1);
+      pivot.rotation[anim.axis] = anim.target * (1 - Math.pow(1 - k, 3));
+      if (k >= 1) endMove();
+    }
+    // balanço suave contínuo — acontece até durante os giros
+    root.rotation.y += dt * 0.35;
+    root.rotation.x = 0.35 + Math.sin(clock.elapsedTime * 0.4) * 0.08;
+    renderer.render(scene, camera);
+  })();
+
+  shuffle(9); // embaralhamento inicial
+  window.rubikShuffle = function () { shuffle(3); };
+})();
+</script>
 <script>
 (function () {
   "use strict";
@@ -508,6 +636,7 @@
     if (updateHash !== false) {
       history.replaceState(null, "", "#" + (current + 1));
     }
+    if (window.rubikShuffle) window.rubikShuffle();
   }
 
   function next() { show(current + 1); }
