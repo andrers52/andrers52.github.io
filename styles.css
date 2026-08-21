@@ -167,7 +167,7 @@ a:hover { color: var(--gold-soft); }
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 2rem clamp(1.2rem, 5vw, 4rem) 6rem;
+  padding: 6rem clamp(1.2rem, 5vw, 4rem) 6rem;
 }
 
 .wordmark {
