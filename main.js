@@ -34,12 +34,10 @@ const I18N = {
       "The best products don't simply solve today's problems — they evolve alongside the people who use them.",
 
     "products.title": "Products",
-    "products.intro":
-      "Our philosophy, already at work. Try them right here — no installs, no accounts.",
+    "products.intro": "Our philosophy, already at work.",
     "products.cl.alt": "Corrida Leve app",
     "products.cl.desc":
-      "A gentle running companion (em português) that takes anyone from the couch to their first light runs — adaptive plans, no pressure, no ads. Installable as a PWA.",
-    "products.cl.btn": "Open Corrida Leve",
+      "A gentle running companion (em português) that takes anyone from the couch to their first light runs — adaptive plans, no pressure, no ads. Currently in closed testing on iOS.",
     "products.z32.alt": "Z32 gameplay",
     "products.z32.desc":
       "A high-performance game running on our Rust-native engine, compiled to WebAssembly and rendered in your browser. The first real-world validation of the workshop's interactive stack.",
@@ -134,12 +132,10 @@ const I18N = {
       "Os melhores produtos não apenas resolvem os problemas de hoje — eles evoluem junto com as pessoas que os usam.",
 
     "products.title": "Produtos",
-    "products.intro":
-      "Nossa filosofia, já em ação. Experimente aqui mesmo — sem instalação, sem contas.",
+    "products.intro": "Nossa filosofia, já em ação.",
     "products.cl.alt": "Aplicativo Corrida Leve",
     "products.cl.desc":
-      "Um companheiro gentil de corrida que leva qualquer pessoa do sofá às suas primeiras corridas leves — planos adaptativos, sem pressão, sem anúncios. Instalável como PWA.",
-    "products.cl.btn": "Abrir Corrida Leve",
+      "Um companheiro gentil de corrida que leva qualquer pessoa do sofá às suas primeiras corridas leves — planos adaptativos, sem pressão, sem anúncios. Em teste fechado no iOS.",
     "products.z32.alt": "Gameplay de Z32",
     "products.z32.desc":
       "Um jogo de alta performance rodando em nossa engine nativa em Rust, compilada para WebAssembly e renderizada no seu navegador. A primeira validação em mundo real da stack interativa do ateliê.",
