@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e4efe4"/><stop offset="1" stop-color="#b8d7c0"/></linearGradient></defs>
+<rect width="800" height="500" fill="url(#bg)"/>
+<circle cx="635" cy="105" r="58" fill="#f4d68a" opacity=".8"/>
+<path d="M0 360 Q170 250 320 355 T800 315 V500 H0Z" fill="#8dbb94"/>
+<path d="M0 415 Q180 335 380 420 T800 385 V500 H0Z" fill="#4f8b65"/>
+<rect x="286" y="65" width="228" height="365" rx="32" fill="#173d30" opacity=".18"/>
+<rect x="300" y="52" width="200" height="365" rx="30" fill="#173d30"/>
+<rect x="312" y="68" width="176" height="332" rx="20" fill="#fbfaf6"/>
+<circle cx="400" cy="166" r="54" fill="#d8ead9"/>
+<path d="M400 197 C367 176 369 147 387 147 C397 147 400 158 400 158 C400 158 406 147 416 147 C434 147 435 176 400 197Z" fill="#236b49"/>
+<text x="400" y="251" font-family="Arial,sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#234331">PetRescue</text>
+<text x="400" y="278" font-family="Arial,sans-serif" font-size="13" text-anchor="middle" fill="#54705c">Uma comunidade que cuida</text>
+<rect x="337" y="305" width="126" height="34" rx="17" fill="#236b49"/>
+<text x="400" y="327" font-family="Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#fff">Registrar animal</text>
+</svg>

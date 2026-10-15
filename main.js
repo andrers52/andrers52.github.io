@@ -38,6 +38,10 @@ const I18N = {
     "products.cl.alt": "Corrida Leve app",
     "products.cl.desc":
       "A gentle running companion (em português) that takes anyone from the couch to their first light runs — adaptive plans, no pressure, no ads. Currently in closed testing on iOS.",
+    "products.pr.alt": "PetRescue app",
+    "products.pr.desc":
+      "A community tool for recording sightings and keeping private drafts about lost and found animals. Community publishing is still in development.",
+    "products.pr.btn": "Open PetRescue ↗",
     "products.z32.alt": "Z32 gameplay",
     "products.z32.desc":
       "A high-performance game running on our Rust-native engine, compiled to WebAssembly and rendered in your browser. The first real-world validation of the workshop's interactive stack.",
@@ -136,6 +140,10 @@ const I18N = {
     "products.cl.alt": "Aplicativo Corrida Leve",
     "products.cl.desc":
       "Um companheiro gentil de corrida que leva qualquer pessoa do sofá às suas primeiras corridas leves — planos adaptativos, sem pressão, sem anúncios. Em teste fechado no iOS.",
+    "products.pr.alt": "Aplicativo PetRescue",
+    "products.pr.desc":
+      "Uma ferramenta comunitária para registrar avistamentos e guardar rascunhos privados sobre animais perdidos ou encontrados. A publicação comunitária ainda está em desenvolvimento.",
+    "products.pr.btn": "Abrir PetRescue ↗",
     "products.z32.alt": "Gameplay de Z32",
     "products.z32.desc":
       "Um jogo de alta performance rodando em nossa engine nativa em Rust, compilada para WebAssembly e renderizada no seu navegador. A primeira validação em mundo real da stack interativa do ateliê.",
