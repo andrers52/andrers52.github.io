@@ -42,6 +42,7 @@ const I18N = {
     "products.pr.desc":
       "A community tool for recording sightings and keeping private drafts about lost and found animals. Community publishing is still in development.",
     "products.pr.btn": "Open PetRescue ↗",
+    "products.pr.dl": "Download for iPhone ↗",
     "products.z32.alt": "Z32 gameplay",
     "products.z32.desc":
       "A high-performance game running on our Rust-native engine, compiled to WebAssembly and rendered in your browser. The first real-world validation of the workshop's interactive stack.",
@@ -144,6 +145,7 @@ const I18N = {
     "products.pr.desc":
       "Uma ferramenta comunitária para registrar avistamentos e guardar rascunhos privados sobre animais perdidos ou encontrados. A publicação comunitária ainda está em desenvolvimento.",
     "products.pr.btn": "Abrir PetRescue ↗",
+    "products.pr.dl": "Baixar para iPhone ↗",
     "products.z32.alt": "Gameplay de Z32",
     "products.z32.desc":
       "Um jogo de alta performance rodando em nossa engine nativa em Rust, compilada para WebAssembly e renderizada no seu navegador. A primeira validação em mundo real da stack interativa do ateliê.",

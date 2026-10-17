@@ -1,20 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#236b49">
-  <meta name="description" content="PetRescue conecta pessoas que encontram, procuram e protegem animais.">
-  <title>PetRescue — Uma comunidade que cuida</title>
-  <style>
-    html, body { min-height: 100%; margin: 0; }
-    body { background: #fbfaf6; color: #202a24; }
-    #app { min-height: 100vh; }
-    .boot-message { padding: 24px; font: 16px/1.6 system-ui, sans-serif; }
-  </style>
-  <script type="module" crossorigin src="/petrescue/assets/main-DTDyzIgC.js"></script>
-<link rel="manifest" href="/petrescue/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/petrescue/registerSW.js"></script></head>
-<body>
-  <div id="app"><p class="boot-message">Carregando PetRescue…</p></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#3b82f6" />
+    <title>PetRescue Brasil</title>
+    <!-- PWA hospedado no subpath /petrescue/ (GitHub Pages) — ver
+         experiments.baseUrl no app.json e public/manifest.json. -->
+    <link rel="icon" href="/petrescue/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/petrescue/icon-192.png" />
+    <link rel="manifest" href="/petrescue/manifest.json" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/petrescue/sw.js', { scope: '/petrescue/' })
+        })
+      }
+    </script>
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+  <link rel="icon" href="/petrescue/favicon.ico"/></head>
+
+  <body>
+    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  <script src="/petrescue/_expo/static/js/web/index-a30b8d1d9f775e38fc1c3dbde8e9fd75.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,16 @@
+{
+  "name": "PetRescue Brasil",
+  "short_name": "PetRescue",
+  "description": "Encontre seu pet perdido, adote com seguranca, encontre servicos locais.",
+  "start_url": "/petrescue/",
+  "scope": "/petrescue/",
+  "id": "/petrescue/",
+  "display": "standalone",
+  "lang": "pt-BR",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
