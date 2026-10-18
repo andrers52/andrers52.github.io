@@ -36,6 +36,7 @@ const I18N = {
     "products.title": "Products",
     "products.intro": "Our philosophy, already at work.",
     "products.cl.alt": "Corrida Leve app",
+    "products.cl.btn": "Open Corrida Leve ↗",
     "products.cl.desc":
       "A gentle running companion (em português) that takes anyone from the couch to their first light runs — adaptive plans, no pressure, no ads. Currently in closed testing on iOS.",
     "products.pr.alt": "PetRescue app",
@@ -139,6 +140,7 @@ const I18N = {
     "products.title": "Produtos",
     "products.intro": "Nossa filosofia, já em ação.",
     "products.cl.alt": "Aplicativo Corrida Leve",
+    "products.cl.btn": "Abrir Corrida Leve ↗",
     "products.cl.desc":
       "Um companheiro gentil de corrida que leva qualquer pessoa do sofá às suas primeiras corridas leves — planos adaptativos, sem pressão, sem anúncios. Em teste fechado no iOS.",
     "products.pr.alt": "Aplicativo PetRescue",
