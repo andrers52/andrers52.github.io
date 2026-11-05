@@ -46,7 +46,7 @@ const I18N = {
     "products.pr.dl": "Download for iPhone ↗",
     "products.z32.alt": "Z32 gameplay",
     "products.z32.desc":
-      "A high-performance game running on our Rust-native engine, compiled to WebAssembly and rendered in your browser. The first real-world validation of the workshop's interactive stack.",
+      "A high-performance game running on our C++ Brainiac engine, compiled to WebAssembly and rendered in your browser. The first real-world validation of the workshop's interactive stack.",
     "products.z32.btn": "▶ Play Z32",
 
     "oss.title": "Open Source Libraries",
@@ -150,7 +150,7 @@ const I18N = {
     "products.pr.dl": "Baixar para iPhone ↗",
     "products.z32.alt": "Gameplay de Z32",
     "products.z32.desc":
-      "Um jogo de alta performance rodando em nossa engine nativa em Rust, compilada para WebAssembly e renderizada no seu navegador. A primeira validação em mundo real da stack interativa do ateliê.",
+      "Um jogo de alta performance rodando em nossa engine Brainiac em C++, compilada para WebAssembly e renderizada no seu navegador. A primeira validação em mundo real da stack interativa do ateliê.",
     "products.z32.btn": "▶ Jogar Z32",
 
     "oss.title": "Bibliotecas Open Source",
