@@ -28,8 +28,8 @@
       position: relative;
     }
 
-    /* The engine renders at a fixed internal resolution; the canvas stretches to the window.
-       Pointer coordinates are converted by the engine, so stretching is safe. */
+    /* The canvas bitmap is sized to the real viewport in device pixels, so the browser
+       displays it 1:1 and does not stretch a fixed 1280x720 buffer. */
     #canvas {
       position: fixed;
       inset: 0;
@@ -42,10 +42,18 @@
 </head>
 
 <body>
-  <canvas id="canvas" width="1280" height="720"></canvas>
+  <canvas id="canvas"></canvas>
   <script>
     // The engine resolves its canvas from Module.canvas; raylib's web backend reads its id.
     var Module = { canvas: document.getElementById('canvas') };
+
+    // Size the bitmap to the viewport in device pixels before the engine initializes.
+    // This keeps the game at native resolution on wide and HiDPI screens.
+    (function () {
+      const dpr = window.devicePixelRatio || 1;
+      Module.canvas.width = Math.max(1, Math.round(window.innerWidth * dpr));
+      Module.canvas.height = Math.max(1, Math.round(window.innerHeight * dpr));
+    })();
   </script>
   <script src="./z32.js"></script>
 </body>
