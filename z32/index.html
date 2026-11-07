@@ -45,7 +45,12 @@
   <canvas id="canvas"></canvas>
   <script>
     // The engine resolves its canvas from Module.canvas; raylib's web backend reads its id.
-    var Module = { canvas: document.getElementById('canvas') };
+    // Versioned asset URLs keep z32.js, z32.wasm and z32.data in sync after a deploy,
+    // even when the CDN/browser still has an older copy of one of them cached.
+    var Module = {
+      canvas: document.getElementById('canvas'),
+      locateFile: function (path) { return path + '?v=20261106b'; }
+    };
 
     // Size the bitmap to the viewport in device pixels before the engine initializes.
     // This keeps the game at native resolution on wide and HiDPI screens.
@@ -55,7 +60,7 @@
       Module.canvas.height = Math.max(1, Math.round(window.innerHeight * dpr));
     })();
   </script>
-  <script src="./z32.js"></script>
+  <script src="./z32.js?v=20261106b"></script>
 </body>
 
 </html>
