@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Hardbeat</title>
+  <link rel="icon" href="data:,">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #05060c;
+      color: #8a9ab8;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #canvas {
+      display: block;
+      background: #05060c;
+      box-shadow: 0 0 48px rgba(0, 240, 255, 0.12);
+      outline: none;
+      touch-action: none;
+    }
+
+    #status {
+      position: fixed;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      pointer-events: none;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      opacity: 0.65;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="960" height="540" tabindex="0"></canvas>
+  <div id="status">loading hardbeat…</div>
+
+  <script>
+    var Module = {
+      canvas: document.getElementById('canvas'),
+      print: function (text) { console.log(text); },
+      printErr: function (text) { console.error(text); },
+      onRuntimeInitialized: function () {
+        document.getElementById('status').textContent =
+          'enter / space to start · wasd / arrows to steer · space to dash · r to restart';
+        requestAnimationFrame(fitCanvas);
+      }
+    };
+
+    function fitCanvas() {
+      const canvas = Module.canvas;
+      const margin = 24;
+      const width = Math.max(1, window.innerWidth - margin);
+      const height = Math.max(1, window.innerHeight - margin);
+      const scale = Math.min(width / 960, height / 540);
+      canvas.style.width = Math.round(960 * scale) + 'px';
+      canvas.style.height = Math.round(540 * scale) + 'px';
+      canvas.setAttribute('aria-label', 'Hardbeat spatial music gauntlet, 960 by 540');
+    }
+
+    fitCanvas();
+    window.addEventListener('resize', fitCanvas);
+
+    window.addEventListener('keydown', function (event) {
+      if (event.key === ' ' || event.key === 'Spacebar' || event.key.startsWith('Arrow')) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+
+    window.addEventListener('contextmenu', function (event) {
+      event.preventDefault();
+    });
+  </script>
+  <script src="./hardbeat.js"></script>
+</body>
+</html>
