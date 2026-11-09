@@ -48,10 +48,6 @@ const I18N = {
     "products.z32.desc":
       "A high-performance game running on our C++ Brainiac engine, compiled to WebAssembly and rendered in your browser. The first real-world validation of the workshop's interactive stack.",
     "products.z32.btn": "▶ Play Z32",
-    "products.hardbeat.alt": "Hardbeat gameplay",
-    "products.hardbeat.desc":
-      "A neon rhythm game where every obstacle dances to the soundtrack. Steer through the open arena, dash through danger, and reach the finish with the last beat.",
-    "products.hardbeat.btn": "▶ Play Hardbeat",
 
     "oss.title": "Open Source Libraries",
     "oss.intro": "The building blocks we share — free to use, inspect, and extend.",
@@ -156,10 +152,6 @@ const I18N = {
     "products.z32.desc":
       "Um jogo de alta performance rodando em nossa engine Brainiac em C++, compilada para WebAssembly e renderizada no seu navegador. A primeira validação em mundo real da stack interativa do ateliê.",
     "products.z32.btn": "▶ Jogar Z32",
-    "products.hardbeat.alt": "Gameplay de Hardbeat",
-    "products.hardbeat.desc":
-      "Um jogo de ritmo neon em que cada obstáculo dança com a trilha sonora. Manobre pela arena aberta, use o dash para atravessar o perigo e chegue ao final com a última batida.",
-    "products.hardbeat.btn": "▶ Jogar Hardbeat",
 
     "oss.title": "Bibliotecas Open Source",
     "oss.intro":
