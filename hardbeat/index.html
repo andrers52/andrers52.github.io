@@ -39,49 +39,299 @@
       letter-spacing: 0.08em;
       opacity: 0.65;
       white-space: nowrap;
+      display: none;
+    }
+
+    #overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px;
+      background: rgba(5, 6, 12, 0.97);
+      backdrop-filter: blur(2px);
+    }
+
+    #overlay-title {
+      font-size: 30px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #00f0ff;
+      margin: 0 0 22px;
+    }
+
+    #overlay-message {
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+      color: #8a9ab8;
+      max-width: 560px;
+    }
+
+    #overlay-bar {
+      width: 260px;
+      height: 4px;
+      margin: 24px 0 0;
+      background: rgba(0, 240, 255, 0.18);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    #overlay-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #00f0ff;
+      transition: width 0.12s linear;
+    }
+
+    #overlay-retry {
+      margin-top: 28px;
+      padding: 10px 22px;
+      font-family: inherit;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #00f0ff;
+      background: transparent;
+      border: 1px solid #00f0ff;
+      border-radius: 2px;
+      cursor: pointer;
+      display: none;
+    }
+
+    #overlay-retry:hover {
+      background: rgba(0, 240, 255, 0.12);
     }
   </style>
 </head>
 <body>
   <canvas id="canvas" width="960" height="540" tabindex="0"></canvas>
-  <div id="status">loading hardbeat…</div>
+  <div id="status"></div>
+
+  <div id="overlay">
+    <div id="overlay-title">Hardbeat</div>
+    <div id="overlay-message">loading hardbeat…</div>
+    <div id="overlay-bar"><div id="overlay-bar-fill"></div></div>
+    <button id="overlay-retry" type="button">retry</button>
+  </div>
 
   <script>
+    // The Module object must exist before hardbeat.js loads: Emscripten reads
+    // Module.canvas / print / printErr / onAbort / onRuntimeInitialized from it.
     var Module = {
       canvas: document.getElementById('canvas'),
       print: function (text) { console.log(text); },
-      printErr: function (text) { console.error(text); },
+      printErr: function (text) {
+        console.error(text)
+        // Only surface as a hard failure once the runtime is actually up;
+        // the loader itself prints to stderr while assets stream in.
+        if (Module.started) showError(text)
+      },
+      onAbort: function (what) {
+        showError('hardbeat stopped: ' + what)
+      },
       onRuntimeInitialized: function () {
-        document.getElementById('status').textContent =
-          'enter / space to start · wasd / arrows to steer · space to dash · r to restart';
-        requestAnimationFrame(fitCanvas);
+        Module.started = true
+        if (Module.watchdog) clearTimeout(Module.watchdog)
+        var overlay = document.getElementById('overlay')
+        if (overlay) overlay.style.display = 'none'
+        var status = document.getElementById('status')
+        if (status) {
+          status.textContent = 'enter / space to start · wasd / arrows to steer · space to dash · r to restart'
+          status.style.display = 'block'
+        }
+        fitCanvas()
+        requestAnimationFrame(fitCanvas)
       }
-    };
-
-    function fitCanvas() {
-      const canvas = Module.canvas;
-      const margin = 24;
-      const width = Math.max(1, window.innerWidth - margin);
-      const height = Math.max(1, window.innerHeight - margin);
-      const scale = Math.min(width / 960, height / 540);
-      canvas.style.width = Math.round(960 * scale) + 'px';
-      canvas.style.height = Math.round(540 * scale) + 'px';
-      canvas.setAttribute('aria-label', 'Hardbeat spatial music gauntlet, 960 by 540');
     }
 
-    fitCanvas();
-    window.addEventListener('resize', fitCanvas);
+    function fitCanvas() {
+      const canvas = Module.canvas
+      const margin = 24
+      const width = Math.max(1, window.innerWidth - margin)
+      const height = Math.max(1, window.innerHeight - margin)
+      const scale = Math.min(width / 960, height / 540)
+      canvas.style.width = Math.round(960 * scale) + 'px'
+      canvas.style.height = Math.round(540 * scale) + 'px'
+      canvas.setAttribute('aria-label', 'Hardbeat spatial music gauntlet, 960 by 540')
+    }
+
+    fitCanvas()
+    window.addEventListener('resize', fitCanvas)
 
     window.addEventListener('keydown', function (event) {
       if (event.key === ' ' || event.key === 'Spacebar' || event.key.startsWith('Arrow')) {
-        event.preventDefault();
+        event.preventDefault()
       }
-    }, { passive: false });
+    }, { passive: false })
 
     window.addEventListener('contextmenu', function (event) {
-      event.preventDefault();
-    });
+      event.preventDefault()
+    })
+
+    var overlayEl = document.getElementById('overlay')
+    var overlayMessage = document.getElementById('overlay-message')
+    var overlayBarFill = document.getElementById('overlay-bar-fill')
+    var overlayRetry = document.getElementById('overlay-retry')
+
+    function setMessage(text) {
+      if (overlayMessage) overlayMessage.textContent = text
+    }
+
+    function setBarFill(percent) {
+      if (overlayBarFill) overlayBarFill.style.width = percent + '%'
+    }
+
+    function showError(text) {
+      // Idempotent: safe to call repeatedly (runtime, watchdog, window error
+      // and printErr can all fire) and harmless if the overlay is absent.
+      if (Module.watchdog) {
+        clearTimeout(Module.watchdog)
+        Module.watchdog = null
+      }
+      if (overlayEl) overlayEl.style.display = 'flex'
+      if (overlayBarFill) {
+        overlayBarFill.style.width = '100%'
+        overlayBarFill.style.background = '#ff5a7a'
+      }
+      if (overlayMessage) {
+        overlayMessage.textContent = text
+        overlayMessage.style.color = '#ff5a7a'
+      }
+      if (overlayRetry) overlayRetry.style.display = 'inline-block'
+    }
+
+    if (overlayRetry) {
+      overlayRetry.addEventListener('click', function () { location.reload() })
+    }
+
+    window.addEventListener('error', function (event) {
+      showError('hardbeat failed to load: ' + (event.message || 'unknown error'))
+    })
+
+    window.addEventListener('unhandledrejection', function (event) {
+      var reason = event.reason
+      showError('hardbeat failed to load: ' +
+        ((reason && reason.message) || reason || 'unknown error'))
+    })
+
+    function hasWebGL() {
+      try {
+        var probe = document.createElement('canvas')
+        return !!probe.getContext('webgl2') || !!probe.getContext('webgl')
+      } catch (err) {
+        return false
+      }
+    }
+
+    // no-cache revalidates a stale cached build against the server, so a new
+    // hardbeat.js cannot pair with an old hardbeat.wasm.
+    function fetchAsset(name) {
+      return fetch(name, { cache: 'no-cache' }).then(function (response) {
+        if (!response.ok) throw new Error(name + ' returned HTTP ' + response.status)
+        var total = parseInt(response.headers.get('content-length'), 10)
+        total = isNaN(total) ? 0 : total
+        var received = 0
+        if (response.body && response.body.getReader) {
+          return new Promise(function (resolve, reject) {
+            var reader = response.body.getReader()
+            var chunks = []
+            function pump() {
+              reader.read().then(function (result) {
+                if (result.done) {
+                  var buffer = new Uint8Array(received)
+                  var offset = 0
+                  for (var i = 0; i < chunks.length; i++) {
+                    buffer.set(chunks[i], offset)
+                    offset += chunks[i].length
+                  }
+                  resolve(buffer)
+                } else {
+                  chunks.push(result.value)
+                  received += result.value.length
+                  updateProgress(name, received, total)
+                  pump()
+                }
+              }, reject)
+            }
+            pump()
+          })
+        }
+        return response.arrayBuffer().then(function (buffer) {
+          updateProgress(name, buffer.byteLength, total)
+          return new Uint8Array(buffer)
+        })
+      })
+    }
+
+    function updateProgress(name, received, total) {
+      var index = ASSETS.indexOf(name)
+      if (total > 0) {
+        setMessage('loading hardbeat ' + (index + 1) + '/' + ASSETS.length +
+          ' · ' + name + ' ' + Math.round((received / total) * 100) + '%')
+      } else {
+        setMessage('loading hardbeat ' + (index + 1) + '/' + ASSETS.length +
+          ' · ' + name + ' ' + (received / 1048576).toFixed(1) + ' MB')
+      }
+      var fileFraction = total > 0 ? received / total : (index < ASSETS.length - 1 ? 0 : 1)
+      setBarFill(((index + fileFraction) / ASSETS.length) * 100)
+    }
+
+    var ASSETS = ['hardbeat.js', 'hardbeat.wasm', 'hardbeat.data']
+
+    function boot() {
+      if (Module.booting) return
+      Module.booting = true
+      setBarFill(0)
+      if (overlayBarFill) overlayBarFill.style.background = ''
+      if (overlayEl) overlayEl.style.display = 'flex'
+      setMessage('loading hardbeat…')
+
+      if (!hasWebGL()) {
+        showError('this browser has no WebGL support. enable hardware acceleration or try another browser.')
+        return
+      }
+
+      var queue = ASSETS.slice()
+      function next() {
+        if (!queue.length) {
+          injectGlue()
+          return
+        }
+        var name = queue.shift()
+        fetchAsset(name).then(function (buffer) {
+          if (name === 'hardbeat.wasm') Module.wasmBinary = buffer
+          next()
+        }, function (err) {
+          showError(err && err.message ? err.message : String(err))
+        })
+      }
+      next()
+    }
+
+    function injectGlue() {
+      setMessage('starting hardbeat…')
+      setBarFill(100)
+      var script = document.createElement('script')
+      script.src = 'hardbeat.js'
+      script.onerror = function () {
+        showError('hardbeat.js failed to load')
+      }
+      document.body.appendChild(script)
+      // If the runtime does not come up, Emscripten's own printErr / abort
+      // will have fired already; this only covers a silent hang.
+      Module.watchdog = setTimeout(function () {
+        if (!Module.calledRun) {
+          showError('hardbeat did not start (timeout). reload the page.')
+        }
+      }, 20000)
+    }
+
+    boot()
   </script>
-  <script src="./hardbeat.js"></script>
 </body>
 </html>
