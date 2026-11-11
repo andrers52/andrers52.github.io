@@ -57,19 +57,28 @@
     }
 
     #overlay-title {
-      font-size: 30px;
-      letter-spacing: 0.28em;
+      font-size: 46px;
+      letter-spacing: 0.32em;
       text-transform: uppercase;
       color: #00f0ff;
-      margin: 0 0 22px;
+      margin: 0 0 26px;
+      text-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
+    }
+
+    @keyframes hardbeat-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.12; }
     }
 
     #overlay-message {
-      font-size: 13px;
-      letter-spacing: 0.04em;
+      margin: 0 0 0;
+      font-size: 14px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       line-height: 1.7;
       color: #8a9ab8;
       max-width: 560px;
+      animation: hardbeat-blink 1.4s ease-in-out infinite;
     }
 
     #overlay-bar {
@@ -86,6 +95,14 @@
       width: 0%;
       background: #00f0ff;
       transition: width 0.12s linear;
+    }
+
+    #overlay-detail {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: #55627d;
+      margin-top: 10px;
+      min-height: 14px;
     }
 
     #overlay-retry {
@@ -116,6 +133,7 @@
     <div id="overlay-title">Hardbeat</div>
     <div id="overlay-message">loading hardbeat…</div>
     <div id="overlay-bar"><div id="overlay-bar-fill"></div></div>
+    <div id="overlay-detail"></div>
     <button id="overlay-retry" type="button">retry</button>
   </div>
 
@@ -177,9 +195,14 @@
     var overlayMessage = document.getElementById('overlay-message')
     var overlayBarFill = document.getElementById('overlay-bar-fill')
     var overlayRetry = document.getElementById('overlay-retry')
+    var overlayDetail = document.getElementById('overlay-detail')
 
     function setMessage(text) {
       if (overlayMessage) overlayMessage.textContent = text
+    }
+
+    function setDetail(text) {
+      if (overlayDetail) overlayDetail.textContent = text
     }
 
     function setBarFill(percent) {
@@ -199,9 +222,11 @@
         overlayBarFill.style.background = '#ff5a7a'
       }
       if (overlayMessage) {
+        overlayMessage.style.animation = 'none'
         overlayMessage.textContent = text
         overlayMessage.style.color = '#ff5a7a'
       }
+      setDetail('')
       if (overlayRetry) overlayRetry.style.display = 'inline-block'
     }
 
@@ -271,12 +296,13 @@
     function updateProgress(name, received, total) {
       var index = ASSETS.indexOf(name)
       if (total > 0) {
-        setMessage('loading hardbeat ' + (index + 1) + '/' + ASSETS.length +
+        setDetail((index + 1) + '/' + ASSETS.length +
           ' · ' + name + ' ' + Math.round((received / total) * 100) + '%')
       } else {
-        setMessage('loading hardbeat ' + (index + 1) + '/' + ASSETS.length +
+        setDetail((index + 1) + '/' + ASSETS.length +
           ' · ' + name + ' ' + (received / 1048576).toFixed(1) + ' MB')
       }
+      setMessage('loading hardbeat…')
       var fileFraction = total > 0 ? received / total : (index < ASSETS.length - 1 ? 0 : 1)
       setBarFill(((index + fileFraction) / ASSETS.length) * 100)
     }
@@ -289,7 +315,12 @@
       setBarFill(0)
       if (overlayBarFill) overlayBarFill.style.background = ''
       if (overlayEl) overlayEl.style.display = 'flex'
+      if (overlayMessage) {
+        overlayMessage.style.animation = ''
+        overlayMessage.style.color = '#8a9ab8'
+      }
       setMessage('loading hardbeat…')
+      setDetail('')
 
       if (!hasWebGL()) {
         showError('this browser has no WebGL support. enable hardware acceleration or try another browser.')
