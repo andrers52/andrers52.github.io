@@ -210,6 +210,43 @@
     #rotate .install-hint {
       margin-top: 22px;
     }
+
+    /* Debug controls, only with ?debug in the address: they press the game's own debug keys. */
+    #debug-bar {
+      position: fixed;
+      left: 50%;
+      bottom: max(10px, env(safe-area-inset-bottom));
+      z-index: 16;
+      transform: translateX(-50%);
+      display: none;
+      gap: 10px;
+    }
+
+    body.debug #debug-bar {
+      display: flex;
+    }
+
+    body.debug #status {
+      visibility: hidden;
+    }
+
+    #debug-bar button {
+      min-width: 64px;
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 15px;
+      color: #e8f4ff;
+      background: rgba(8, 11, 22, 0.88);
+      border: 1px solid rgba(0, 240, 255, 0.55);
+      border-radius: 4px;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    #debug-bar button:active {
+      background: rgba(0, 240, 255, 0.25);
+    }
   </style>
 </head>
 <body>
@@ -233,6 +270,12 @@
   </div>
 
   <div id="install-banner" class="install-hint">full screen: share → add to home screen</div>
+
+  <div id="debug-bar">
+    <button type="button" data-key="[" title="back 10 s ( [ )">−10s</button>
+    <button type="button" data-key="p" title="pause / resume ( P )">pause</button>
+    <button type="button" data-key="]" title="forward 10 s ( ] )">+10s</button>
+  </div>
 
   <script>
     // The Module object must exist before hardbeat.js loads: Emscripten reads
@@ -552,6 +595,21 @@
           showError('hardbeat did not start (timeout). reload the page.')
         }
       }, 20000)
+    }
+
+    if (/[?&]debug\b/.test(location.search)) {
+      document.body.classList.add('debug')
+      var debugButtons = document.querySelectorAll('#debug-bar button')
+      for (var i = 0; i < debugButtons.length; i++) {
+        debugButtons[i].addEventListener('pointerdown', function (event) {
+          // The button stands in for its key: the game reads keys from the window.
+          event.preventDefault()
+          event.stopPropagation()
+          var key = event.currentTarget.getAttribute('data-key')
+          window.dispatchEvent(new KeyboardEvent('keydown', { key: key }))
+          window.dispatchEvent(new KeyboardEvent('keyup', { key: key }))
+        })
+      }
     }
 
     boot()
