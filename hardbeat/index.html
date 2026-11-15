@@ -7,8 +7,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#05060c">
+  <meta name="apple-mobile-web-app-title" content="Hardbeat">
   <title>Hardbeat</title>
-  <link rel="icon" href="data:,">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <style>
     html, body {
       margin: 0;
@@ -164,6 +167,49 @@
     body.touch.portrait #rotate {
       display: flex;
     }
+
+    /* A phone whose browser cannot go full screen (iPhone): the home screen
+       icon opens the game full screen. */
+    .install-hint {
+      display: none;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.6;
+      color: #00f0ff;
+    }
+
+    body.can-install .install-hint {
+      display: block;
+    }
+
+    #install-banner {
+      position: fixed;
+      left: 50%;
+      top: max(10px, env(safe-area-inset-top));
+      z-index: 15;
+      transform: translateX(-50%);
+      max-width: calc(100% - 32px);
+      padding: 8px 16px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: rgba(5, 6, 12, 0.88);
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      border-radius: 2px;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+
+    #install-banner.gone {
+      opacity: 0;
+    }
+
+    #overlay .install-hint,
+    #rotate .install-hint {
+      margin-top: 22px;
+    }
   </style>
 </head>
 <body>
@@ -176,13 +222,17 @@
     <div id="overlay-bar"><div id="overlay-bar-fill"></div></div>
     <div id="overlay-detail"></div>
     <button id="overlay-retry" type="button">retry</button>
+    <div class="install-hint">full screen: share → add to home screen</div>
   </div>
 
   <div id="rotate">
     <div id="rotate-icon"></div>
     <div>turn your phone sideways</div>
     <div id="rotate-tap">or tap to play full screen</div>
+    <div class="install-hint">full screen: share → add to home screen</div>
   </div>
+
+  <div id="install-banner" class="install-hint">full screen: share → add to home screen</div>
 
   <script>
     // The Module object must exist before hardbeat.js loads: Emscripten reads
@@ -268,6 +318,20 @@
       // iPhone Safari has no full screen for a page: only turning the phone helps.
       var rotateTap = document.getElementById('rotate-tap')
       if (rotateTap) rotateTap.style.display = 'none'
+    }
+
+    // Opened from the home screen icon: already full screen, no hint.
+    var IS_HOME_SCREEN_APP = navigator.standalone === true ||
+      (window.matchMedia && (window.matchMedia('(display-mode: fullscreen)').matches ||
+        window.matchMedia('(display-mode: standalone)').matches))
+    if (IS_TOUCH && !canFullscreen && !IS_HOME_SCREEN_APP) {
+      document.body.classList.add('can-install')
+      // The banner over the game fades after a few seconds; the hint stays on
+      // the loading and turn-sideways screens.
+      setTimeout(function () {
+        var banner = document.getElementById('install-banner')
+        if (banner) banner.classList.add('gone')
+      }, 8000)
     }
 
     function lockLandscape() {
