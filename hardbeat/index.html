@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#05060c">
   <title>Hardbeat</title>
   <link rel="icon" href="data:,">
   <style>
@@ -123,6 +127,43 @@
     #overlay-retry:hover {
       background: rgba(0, 240, 255, 0.12);
     }
+
+    /* Shown on a phone held upright: the game is a 16:9 widescreen. */
+    #rotate {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px;
+      background: #05060c;
+      font-size: 14px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      line-height: 1.7;
+    }
+
+    #rotate-icon {
+      width: 64px;
+      height: 40px;
+      margin: 0 0 28px;
+      border: 2px solid #00f0ff;
+      border-radius: 6px;
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
+    }
+
+    #rotate-tap {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #55627d;
+    }
+
+    body.touch.portrait #rotate {
+      display: flex;
+    }
   </style>
 </head>
 <body>
@@ -135,6 +176,12 @@
     <div id="overlay-bar"><div id="overlay-bar-fill"></div></div>
     <div id="overlay-detail"></div>
     <button id="overlay-retry" type="button">retry</button>
+  </div>
+
+  <div id="rotate">
+    <div id="rotate-icon"></div>
+    <div>turn your phone sideways</div>
+    <div id="rotate-tap">or tap to play full screen</div>
   </div>
 
   <script>
@@ -158,7 +205,7 @@
         var overlay = document.getElementById('overlay')
         if (overlay) overlay.style.display = 'none'
         var status = document.getElementById('status')
-        if (status) {
+        if (status && !IS_TOUCH) {
           status.textContent = 'enter / space to start · wasd / arrows to steer · space to dash · r to restart'
           status.style.display = 'block'
         }
@@ -167,19 +214,100 @@
       }
     }
 
+    // A phone or tablet: the canvas fills the screen edge to edge, the page asks
+    // for full screen and a landscape lock on the first tap, and a phone held
+    // upright is told to turn sideways.
+    var IS_TOUCH = window.matchMedia
+      ? window.matchMedia('(pointer: coarse)').matches
+      : 'ontouchstart' in window
+    if (IS_TOUCH) document.body.classList.add('touch')
+
+    function viewportSize() {
+      var vv = window.visualViewport
+      return {
+        width: vv ? vv.width : window.innerWidth,
+        height: vv ? vv.height : window.innerHeight
+      }
+    }
+
     function fitCanvas() {
       const canvas = Module.canvas
-      const margin = 24
-      const width = Math.max(1, window.innerWidth - margin)
-      const height = Math.max(1, window.innerHeight - margin)
+      const view = viewportSize()
+      const margin = IS_TOUCH ? 0 : 24
+      const width = Math.max(1, view.width - margin)
+      const height = Math.max(1, view.height - margin)
       const scale = Math.min(width / 960, height / 540)
-      canvas.style.width = Math.round(960 * scale) + 'px'
-      canvas.style.height = Math.round(540 * scale) + 'px'
+      canvas.style.width = Math.floor(960 * scale) + 'px'
+      canvas.style.height = Math.floor(540 * scale) + 'px'
+      canvas.style.boxShadow = IS_TOUCH ? 'none' : ''
       canvas.setAttribute('aria-label', 'Hardbeat spatial music gauntlet, 960 by 540')
+      document.body.classList.toggle('portrait', view.height > view.width)
+    }
+
+    function refit() {
+      fitCanvas()
+      // Mobile browsers report the new size a little after a rotation or a
+      // full screen change.
+      setTimeout(fitCanvas, 250)
     }
 
     fitCanvas()
     window.addEventListener('resize', fitCanvas)
+    window.addEventListener('orientationchange', refit)
+    document.addEventListener('fullscreenchange', refit)
+    document.addEventListener('webkitfullscreenchange', refit)
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', fitCanvas)
+
+    function isFullscreen() {
+      return !!(document.fullscreenElement || document.webkitFullscreenElement)
+    }
+
+    var root = document.documentElement
+    var canFullscreen = !!(root.requestFullscreen || root.webkitRequestFullscreen)
+    if (!canFullscreen) {
+      // iPhone Safari has no full screen for a page: only turning the phone helps.
+      var rotateTap = document.getElementById('rotate-tap')
+      if (rotateTap) rotateTap.style.display = 'none'
+    }
+
+    function lockLandscape() {
+      var orientation = screen.orientation
+      if (orientation && orientation.lock) {
+        orientation.lock('landscape').catch(function () {})
+      }
+    }
+
+    // Full screen needs a user gesture: every tap outside full screen asks again,
+    // so the game goes back to full screen after the player leaves it.
+    var fullscreenPending = false
+
+    function enterFullscreen() {
+      if (!IS_TOUCH || !canFullscreen || fullscreenPending) return
+      if (isFullscreen()) {
+        lockLandscape()
+        return
+      }
+      try {
+        var request = root.requestFullscreen
+          ? root.requestFullscreen({ navigationUI: 'hide' })
+          : root.webkitRequestFullscreen()
+        if (request && request.then) {
+          fullscreenPending = true
+          request.then(lockLandscape, function () {}).then(function () {
+            fullscreenPending = false
+          })
+        } else {
+          lockLandscape()
+        }
+      } catch (err) {
+        // full screen refused: the page still fills the window
+      }
+    }
+
+    window.addEventListener('touchend', enterFullscreen, { capture: true, passive: true })
+    window.addEventListener('pointerup', function (event) {
+      if (event.pointerType !== 'mouse') enterFullscreen()
+    }, { capture: true, passive: true })
 
     window.addEventListener('keydown', function (event) {
       if (event.key === ' ' || event.key === 'Spacebar' || event.key.startsWith('Arrow')) {
